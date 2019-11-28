@@ -26,7 +26,19 @@
       '-----------------------------'
     -->
     <div id="app">
-      <input type="text" v-on:change="lookup">
+      <div>
+        <input type="text" v-model="input" v-on:change="lookup">
+      </div>
+      <ul>
+        <li>
+          <input id="include_ciangjie" type="checkbox" v-model="include_ciangjie" v-on:change="lookup">
+          <label for="include_ciangjie">倉頡輸入法も含む</label>
+        </li>
+        <li>
+          <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
+          <label for="include_similar">似てる部首も含む</label>
+        </li>
+      </ul>
       <div>
         <span v-for="candidate in candidates">
           {{ candidate }}
@@ -35,6 +47,7 @@
     </div>
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
+    <script async src="./src/compat.js"></script>
     <script async src="./src/app.js"></script>
   </body>
 </html>

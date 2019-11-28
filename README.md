@@ -1,4 +1,17 @@
-# Notice
+# Kanji Search by Parts
+
+Quickly search for kanji by typing in known radicals:
+
+Example: 田 + 心 = 思
+
+It also supports searching by visually similar parts:
+
+Example: 𠆢口 = 合 (U+201A2 + U+53E3)
+This can also be found using ^ロ (circumflex + katakana 'ro')
+
+[Try it here](https://rewhowe.github.io/kanji/)
+
+## Notice
 
 This project uses information from "radkfile" and "radkfile2" and the licenses therein are reproduced below, without modification:
 
