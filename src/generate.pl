@@ -19,7 +19,7 @@ use warnings;
 
 die "Usage: generate.pl path/to/radkfile\n" unless $ARGV[0];
 open(my $radkfile, '<:encoding(euc-jp)', $ARGV[0]) or die "Could not open $ARGV[0]\n";
-open(my $output, '>:encoding(utf-8)', 'output.json') or die "Could not open output.json for writing\n";
+open(my $output, '>:encoding(utf-8)', 'radicals.json') or die "Could not open radicals.json for writing\n";
 
 sub main {
   my $radicalData = undef;
