@@ -1,6 +1,15 @@
 # Notice
 
-This project uses information from "radkfile2" and the license therein contained is reproduced below, without modification:
+This project uses information from "radkfile" and "radkfile2" and the licenses therein are reproduced below, without modification:
+
+```
+#                           R A D K F I L E
+#
+#	Copyright 2001/2007 Michael Raine, James Breen and the Electronic
+#       Dictionary Research & Development Group
+#	See: http://www.edrdg.org/edrdg/licence.html
+#       for permissions for use and redistribution.
+```
 
 ```
 #                           R A D K F I L E - 2

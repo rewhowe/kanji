@@ -17,65 +17,94 @@
 use strict;
 use warnings;
 
-die "Usage: generate.pl path/to/radkfile\n" unless $ARGV[0];
-open(my $radkfile, '<:encoding(euc-jp)', $ARGV[0]) or die "Could not open $ARGV[0]\n";
+use feature 'state';
+
+use constant RADKFILES => ('radkfile', 'radkfile2');
+
+die "Usage: generate.pl directory/of/radkfiles/\n" unless $ARGV[0];
 open(my $output, '>:encoding(utf-8)', 'radicals.json') or die "Could not open radicals.json for writing\n";
 
 sub main {
-  my $radicalData = undef;
+  my %radicalData = parseSourceFiles();
 
-  print $output '{';
+  outputJson(\%radicalData);
+}
 
-  while (my $line = <$radkfile>) {
-    next if $line =~ /^#/; # skip comments
+sub parseSourceFiles {
+  my %radicalData = ();
 
-    if ($line =~ /^\$/) {
-      outputRadical($radicalData, 0);
+  foreach my $filename (RADKFILES) {
+    open(my $radkfile, '<:encoding(euc-jp)', $ARGV[0] . $filename) or die "Could not open $ARGV[0]\n";
 
-      my @matches = ($line =~ /^\$ (.) (\d+)(.+)?$/);
+    while (my $line = <$radkfile>) {
+      next if $line =~ /^#/; # skip comments
 
-      die "Error while parsing $line\n" if !@matches || @matches < 2;
-
-      $radicalData = makeRadicalData(@matches);
-    } else {
-      chomp($line);
-      push(@{$radicalData->{relatedKanji}}, split('', $line));
+      processLine(\%radicalData, $line);
     }
+
+    close($radkfile);
   }
 
-  outputRadical($radicalData, 1);
+  return %radicalData;
+}
 
-  print $output '}';
+sub processLine {
+  state $currentRadical = undef;
+
+  my ($radicalDataRef, $line) = @_;
+
+  if ($line =~ /^\$/) {
+    my @matches = ($line =~ /^\$ (.) (\d+)(.+)?$/);
+
+    die "Error while parsing $line\n" if !@matches || @matches < 2;
+
+    $currentRadical = shift @matches;
+    if (! exists $radicalDataRef->{$currentRadical}) {
+      $radicalDataRef->{$currentRadical} = makeRadicalData(@matches);
+    }
+  } elsif (defined $currentRadical) {
+    chomp($line);
+    push(@{$radicalDataRef->{$currentRadical}->{relatedKanji}}, split('', $line));
+  }
 }
 
 sub makeRadicalData {
+  my ($numStrokes, $nonStandardCode) = @_;
+
   return {
-    radical      => $_[0],
-    numStrokes   => $_[1],
-    isStandard   => ! defined $_[2],
+    numStrokes   => $numStrokes,
+    isStandard   => ! defined $nonStandardCode,
     relatedKanji => [],
   };
 }
 
-sub outputRadical {
-  my ($radicalData, $isLast) = @_;
+sub outputJson {
+  my %radicalData = %{ $_[0] };
 
-  return unless $radicalData;
+  my $numRadicals = keys(%radicalData);
+  return unless $numRadicals > 0;
 
-  my @kanji = @{$radicalData->{relatedKanji}};
+  print $output '{';
 
-  print $output sprintf(
-    '"%s":{"strokes":%d,"standard":%s,"kanji":[%s]}',
-    $radicalData->{radical},
-    $radicalData->{numStrokes},
-    $radicalData->{isStandard} ? 'true' : 'false',
-    @kanji ? '"' . join('","', @kanji) . '"' : ''
-  );
+  my $i = 0;
+  while (my ($radical, $data) = each(%radicalData)) {
+    my @kanji = @{$data->{relatedKanji}};
 
-  print $output ',' unless $isLast;
+    print $output sprintf(
+      '"%s":{"strokes":%d,"standard":%s,"kanji":[%s]}',
+      $radical,
+      $data->{numStrokes},
+      $data->{isStandard} ? 'true' : 'false',
+      @kanji ? '"' . join('","', @kanji) . '"' : ''
+    );
+
+    $i++;
+    print $output ',' unless $i == $numRadicals;
+  }
+
+  print $output '}';
 }
 
 main();
 
-close($radkfile);
 close($output);
