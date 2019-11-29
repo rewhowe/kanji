@@ -2,7 +2,8 @@
   <head>
     <title>Search Kanji By Parts</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./src/app.css"/>
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/app.css"/>
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/lib/reset.css"/>
   </head>
   <body>
     <!--
@@ -25,7 +26,7 @@
       | 17 | 龠                     |
       '-----------------------------'
     -->
-    <div id="app">
+    <div id="app" class="app">
       <div>
         <input type="text" v-model="input" v-on:change="lookup">
       </div>
@@ -40,11 +41,22 @@
           <label for="include_similar">似てる部首も含む</label>
         </li>
       </ul>
-      <div>
-        <span v-for="candidate in candidates">
-          {{ candidate }}
-        </span>
+      <div class="candidate-list">
+        <span v-for="candidate in candidates" :key="candidate" class="candidate">{{ candidate }}</span>
       </div>
+      <table>
+        <tbody>
+          <tr v-for="(radicals, stroke_num) in radical_selection" :key="stroke_num">
+            <th>{{ stroke_num }}</th>
+            <td>
+              <span v-for="(data, radical) in radicals"
+                :key="data.selected"
+                v-on:click="selectRadical(radical)"
+                class="radical"
+                :class="{ selected: data.selected }">{{ radical }}</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>

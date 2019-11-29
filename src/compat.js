@@ -257,6 +257,7 @@ const LOOKALIKES = {
   '|': ['｜'],
 };
 
+// Mapping of display radical to RADK radical
 const RADK = {
   '⺅': '化',
   '𠆢': '个',
@@ -281,6 +282,11 @@ const RADK = {
   '⺲': '買',
   '啇': '滴',
 };
+
+const RADK_DISPLAY = {};
+Object.keys(RADK).forEach(function (radical) {
+  RADK_DISPLAY[RADK[radical]] = radical;
+});
 
 const CIANGJIE = {
   // TODO

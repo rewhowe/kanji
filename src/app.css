@@ -1,0 +1,34 @@
+.app {
+  padding: 10px;
+}
+
+.candidate-list {
+  height: 15rem;
+  overflow: scroll;
+  border: 1px solid;
+  padding: 0.4rem;
+  line-height: 1.4rem;
+  font-size: 20px;
+}
+
+.candidate-list .candidate {
+  margin: 0.2rem;
+}
+
+.radical {
+  padding: 0.3rem;
+  border: 1px solid;
+  margin: 0.1rem;
+  line-height: 2rem;
+}
+
+.radical:hover:not(.unavailable),
+.radical.selected:not(.unavailable) {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.radical.unavailable {
+  color: rgba(0, 0, 0, 0.1);
+  border: 1px solid;
+}
