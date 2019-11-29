@@ -27,7 +27,12 @@ open(my $output, '>:encoding(utf-8)', 'radicals.json') or die "Could not open ra
 sub main {
   my %radicalData = parseSourceFiles();
 
-  outputJson(\%radicalData);
+  my @radicalData = sort {
+    $a->{numStrokes} <=> $b->{numStrokes} ||
+    $a->{radical}    cmp $b->{radical}
+  } values(%radicalData);
+
+  outputJson(\@radicalData);
 }
 
 sub parseSourceFiles {
@@ -58,7 +63,7 @@ sub processLine {
 
     die "Error while parsing $line\n" if !@matches || @matches < 2;
 
-    $currentRadical = shift @matches;
+    $currentRadical = $matches[0];
     if (! exists $radicalDataRef->{$currentRadical}) {
       $radicalDataRef->{$currentRadical} = makeRadicalData(@matches);
     }
@@ -69,9 +74,10 @@ sub processLine {
 }
 
 sub makeRadicalData {
-  my ($numStrokes, $nonStandardCode) = @_;
+  my ($radical, $numStrokes, $nonStandardCode) = @_;
 
   return {
+    radical      => $radical,
     numStrokes   => $numStrokes,
     isStandard   => ! defined $nonStandardCode,
     relatedKanji => [],
@@ -79,27 +85,26 @@ sub makeRadicalData {
 }
 
 sub outputJson {
-  my %radicalData = %{ $_[0] };
+  my @radicalData = @{ $_[0] };
 
-  my $numRadicals = keys(%radicalData);
-  return unless $numRadicals > 0;
+  my $numRadicals = @radicalData;
+  return unless @radicalData > 0;
 
   print $output '{';
 
-  my $i = 0;
-  while (my ($radical, $data) = each(%radicalData)) {
+  for (my $i = 0; $i < $numRadicals; $i++) {
+    my $data = $radicalData[$i];
     my @kanji = @{$data->{relatedKanji}};
 
     print $output sprintf(
       '"%s":{"strokes":%d,"standard":%s,"kanji":[%s]}',
-      $radical,
+      $data->{radical},
       $data->{numStrokes},
       $data->{isStandard} ? 'true' : 'false',
       @kanji ? '"' . join('","', @kanji) . '"' : ''
     );
 
-    $i++;
-    print $output ',' unless $i == $numRadicals;
+    print $output ',' unless ($i + 1) == $numRadicals;
   }
 
   print $output '}';
