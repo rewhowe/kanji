@@ -24,12 +24,17 @@ const app = new Vue({
       const radicals = getRadicals();
       const candidates = getCandidates(radicals);
 
+      // updateSelection(radicals);
+
       app.candidates = candidates;
+
       // TODO: hide loading
     },
 
     selectRadical: function (radical) {
-      const radical_data = RADICAL_MAPPING[radical];
+      let radk_radical = RADK[radical] || radical;
+
+      const radical_data = RADICAL_MAPPING[radk_radical];
       const is_selected = ! app.radical_selection[radical_data.strokes][radical].selected;
       app.radical_selection[radical_data.strokes][radical].selected = is_selected;
 
@@ -81,6 +86,10 @@ function getKanjiWithRadical(radical) {
   if (radical instanceof Array) return radical.map(getKanjiWithRadical).flat();
 
   return RADICAL_MAPPING[radical] ? RADICAL_MAPPING[radical].kanji : [];
+}
+
+function updateSelection(radicals) {
+  // TODO
 }
 
 function initialiseRadicalSelection() {
