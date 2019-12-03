@@ -97,7 +97,8 @@ function setSelection(radical, property, is_selected) {
   const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
   if (radical_data) {
     app.radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical][property] = is_selected;
-  } else if (LOOKALIKES[radical]) {
+  }
+  if (property != 'lookalike_selected' && app.include_similar && LOOKALIKES[radical]) {
     LOOKALIKES[radical].forEach(r => setSelection(r, 'lookalike_selected', is_selected));
   }
 }
