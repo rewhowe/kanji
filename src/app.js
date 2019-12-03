@@ -89,15 +89,17 @@ function updateSelection() {
   const added = [...app.input].filter(radical => !app.old_input.includes(radical));
   const removed = [...app.old_input].filter(radical => !app.input.includes(radical));
 
-  added.forEach(function (radical) {
-    const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
-    if (radical_data) app.radical_selection[radical_data.strokes][radical].selected = true;
-  });
+  added.forEach(radical => setSelection(radical, 'selected', true));
+  removed.forEach(radical => setSelection(radical, 'selected', false));
+}
 
-  removed.forEach(function (radical) {
-    const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
-    if (radical_data) app.radical_selection[radical_data.strokes][radical].selected = false;
-  });
+function setSelection(radical, property, is_selected) {
+  const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
+  if (radical_data) {
+    app.radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical][property] = is_selected;
+  } else if (LOOKALIKES[radical]) {
+    LOOKALIKES[radical].forEach(r => setSelection(r, 'lookalike_selected', is_selected));
+  }
 }
 
 function initialiseRadicalSelection() {
@@ -108,7 +110,11 @@ function initialiseRadicalSelection() {
 
     if (!radical_selection[radical_data.strokes]) radical_selection[radical_data.strokes] = {};
 
-    radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical] = { selected: false };
+    // TODO: can we simplify this to avoid flipping back and forth between display and radk?
+    radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical] = {
+      selected: false,
+      lookalike_selected: false,
+    };
   });
 
   app.radical_selection = radical_selection;

@@ -33,7 +33,7 @@
       <ul>
         <li>
           <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
-          <label for="include_similar">似てる部首も含む</label>
+          <label for="include_similar">似てる部首も含む&#x1F441;</label>
         </li>
       </ul>
       <div class="candidate-list">
@@ -48,7 +48,7 @@
                 :key="data.selected"
                 v-on:click="selectRadical(radical)"
                 class="radical"
-                :class="{ selected: data.selected }">{{ radical }}</span></td>
+                :class="{ selected: data.selected, 'lookalike-selected': data.lookalike_selected }">{{ radical }}</span></td>
           </tr>
         </tbody>
       </table>

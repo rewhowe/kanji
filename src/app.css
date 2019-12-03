@@ -20,6 +20,7 @@
   border: 1px solid;
   margin: 0.1rem;
   line-height: 2rem;
+  position: relative;
 }
 
 .radical:hover:not(.unavailable),
@@ -31,4 +32,13 @@
 .radical.unavailable {
   color: rgba(0, 0, 0, 0.1);
   border: 1px solid;
+}
+
+.radical.lookalike-selected:after {
+  content: '\1F441';
+  position: absolute;
+  left: 0;
+  top: -0.5rem;
+  opacity: 0.5;
+  font-size: 14;
 }
