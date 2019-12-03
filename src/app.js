@@ -1,8 +1,9 @@
 // TODO:
-// * ciangjie mappings
 // * add visual indicator for selected "lookalikes"
 // * sort result kanji by stroke count OR by frequency in chinese
+// * disable radical combinations which aren't possible
 // * styling (including loading spinner)
+// * help charts for lookalikes and alternate forms
 // * compile js / css
 const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/src/radicals.json';
 
@@ -14,7 +15,6 @@ const app = new Vue({
     input: '',
     old_input: '',
     candidates: [],
-    include_ciangjie: false,
     include_similar: false,
     radical_selection: undefined,
   },
@@ -52,8 +52,10 @@ const app = new Vue({
 });
 
 function getRadicals() {
+  app.input = app.input.replace(/[!！][^!！]/g, s => ALTERNATE_FORMS[s[1]] || s[1]);
+
   return [...app.input].map(function (radical) {
-    return app.include_similar && LOOKALIKES[radical] || [RADK[radical] || radical];
+    return (app.include_similar && LOOKALIKES[radical]) || [RADK[radical] || radical];
   });
 }
 
@@ -88,12 +90,12 @@ function updateSelection() {
   const removed = [...app.old_input].filter(radical => !app.input.includes(radical));
 
   added.forEach(function (radical) {
-    const radical_data = RADICAL_MAPPING[radical];
+    const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
     if (radical_data) app.radical_selection[radical_data.strokes][radical].selected = true;
   });
 
   removed.forEach(function (radical) {
-    const radical_data = RADICAL_MAPPING[radical];
+    const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
     if (radical_data) app.radical_selection[radical_data.strokes][radical].selected = false;
   });
 }
