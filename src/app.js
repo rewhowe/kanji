@@ -15,6 +15,7 @@ const app = new Vue({
     candidates: [],
     include_similar: false,
     radical_selection: undefined,
+    sort: 'stroke',
   },
   methods: {
     // TODO: v-on:input そしてタイマーを付ける
@@ -26,7 +27,7 @@ const app = new Vue({
 
       updateSelection();
 
-      app.candidates = candidates;
+      app.candidates = app.sortCandidates(candidates);
 
       // TODO: hide loading
     },
@@ -42,6 +43,11 @@ const app = new Vue({
       }
 
       app.lookup();
+    },
+
+    sortCandidates: function (candidates) {
+      // TODO
+      return candidates;
     },
   },
 });

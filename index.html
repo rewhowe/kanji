@@ -35,6 +35,15 @@
           <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
           <label for="include_similar">似てる部首も含む&#x1F441;</label>
         </li>
+        <li>
+          並び替え
+          <input id="sort_stroke" type="radio" value="stroke" v-model="sort" v-on:change="sortCandidates(app.candidates)">
+          <label for="sort_stroke">画数</label>
+          <input id="sort_freq_ja" type="radio" value="freq_ja" v-model="sort" v-on:change="sortCandidates(app.candidates)">
+          <label for="sort_freq_ja">日本語での使用頻度</label>
+          <input id="sort_freq_cn" type="radio" value="freq_cn" v-model="sort" v-on:change="sortCandidates(app.candidates)">
+          <label for="sort_freq_cn">中国語での使用頻度</label>
+        </li>
       </ul>
       <div class="candidate-list">
         <span v-for="candidate in candidates" :key="candidate" class="candidate">{{ candidate }}</span>
