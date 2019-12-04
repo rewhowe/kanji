@@ -21,7 +21,7 @@ use feature 'state';
 
 use constant RADKFILES => ('radkfile', 'radkfile2');
 
-die "Usage: generate.pl directory/of/radkfiles/\n" unless $ARGV[0];
+die "Usage: $0 directory/of/radkfiles/\n" unless $ARGV[0];
 open(my $output, '>:encoding(utf-8)', 'radicals.json') or die "Could not open radicals.json for writing\n";
 
 sub main {

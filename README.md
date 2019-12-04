@@ -70,9 +70,11 @@ This project uses information from "radkfile" and "radkfile2" and the licenses t
 #   All other rights reserved.
 ```
 
-## Additional Data Sources
+## Data Sources
 
-* [List of kanji by stroke count](https://github.com/idreyn/quantifying-simplified-chinese/blob/master/data/strokes.csv)
+* [RADKFILE/KRADFILE source](http://www.edrdg.org/krad/kradinf.html)
+
+* [List of kanji by stroke count](https://github.com/idreyn/quantifying-simplified-chinese/blob/master/data/strokes.csv) ([raw](https://raw.githubusercontent.com/idreyn/quantifying-simplified-chinese/master/data/strokes.csv))
 
 * [List of kanji by usage (Japanese)](https://kanjicards.org/kanji-list-by-freq.html)
 
