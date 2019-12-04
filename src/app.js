@@ -33,14 +33,13 @@ const app = new Vue({
     },
 
     selectRadical: function (radical) {
-      let radk_radical = RADK[radical] || radical;
-
-      const radical_data = RADICAL_MAPPING[radk_radical];
+      const radical_data = RADICAL_MAPPING[radical];
       const is_selected = ! app.radical_selection[radical_data.strokes][radical].selected;
 
-      app.input = app.input.replace(new RegExp(radical, 'g'), '');
+      const display_radical = RADK_DISPLAY[radical] || radical;
+      app.input = app.input.replace(new RegExp(display_radical, 'g'), '');
       if (is_selected) {
-        app.input = app.input + radical;
+        app.input = app.input + display_radical;
       }
 
       app.lookup();
@@ -95,8 +94,9 @@ function updateSelection() {
 }
 
 function setSelection(radical, property) {
-  const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
-  if (radical_data) app.radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical][property] = true;
+  radical = RADK[radical] || radical;
+  const radical_data = RADICAL_MAPPING[radical];
+  if (radical_data) app.radical_selection[radical_data.strokes][radical][property] = true;
 }
 
 function initialiseRadicalSelection() {
@@ -107,8 +107,8 @@ function initialiseRadicalSelection() {
 
     if (!radical_selection[radical_data.strokes]) radical_selection[radical_data.strokes] = {};
 
-    // TODO: can we simplify this to avoid flipping back and forth between display and radk?
-    radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical] = {
+    radical_selection[radical_data.strokes][radical] = {
+      display: RADK_DISPLAY[radical] || radical,
       selected: false,
       lookalike_selected: false,
     };

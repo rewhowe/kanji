@@ -48,7 +48,7 @@
                 :key="radical"
                 v-on:click="selectRadical(radical)"
                 class="radical"
-                :class="{ selected: data.selected, 'lookalike-selected': data.lookalike_selected }">{{ radical }}</span></td>
+                :class="{ selected: data.selected, 'lookalike-selected': data.lookalike_selected }">{{ data.display }}</span></td>
           </tr>
         </tbody>
       </table>
