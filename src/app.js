@@ -1,5 +1,4 @@
 // TODO:
-// * add visual indicator for selected "lookalikes"
 // * sort result kanji by stroke count OR by frequency in chinese
 // * disable radical combinations which aren't possible
 // * styling (including loading spinner)
