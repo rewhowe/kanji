@@ -45,7 +45,7 @@
             <th>{{ stroke_num }}</th>
             <td>
               <span v-for="(data, radical) in radicals"
-                :key="data.selected"
+                :key="radical"
                 v-on:click="selectRadical(radical)"
                 class="radical"
                 :class="{ selected: data.selected, 'lookalike-selected': data.lookalike_selected }">{{ radical }}</span></td>

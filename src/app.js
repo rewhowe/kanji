@@ -13,7 +13,6 @@ const app = new Vue({
   el: '#app',
   data: {
     input: '',
-    old_input: '',
     candidates: [],
     include_similar: false,
     radical_selection: undefined,
@@ -27,8 +26,6 @@ const app = new Vue({
       const candidates = getCandidates(radicals);
 
       updateSelection();
-
-      app.old_input = app.input
 
       app.candidates = candidates;
 
@@ -86,21 +83,20 @@ function getKanjiWithRadical(radical) {
 }
 
 function updateSelection() {
-  const added = [...app.input].filter(radical => !app.old_input.includes(radical));
-  const removed = [...app.old_input].filter(radical => !app.input.includes(radical));
+  initialiseRadicalSelection();
 
-  added.forEach(radical => setSelection(radical, 'selected', true));
-  removed.forEach(radical => setSelection(radical, 'selected', false));
+  [...app.input].forEach(function (radical) {
+    setSelection(radical, 'selected');
+
+    if (app.include_similar && LOOKALIKES[radical]) {
+      LOOKALIKES[radical].forEach(r => setSelection(r, 'lookalike_selected'));
+    }
+  });
 }
 
-function setSelection(radical, property, is_selected) {
+function setSelection(radical, property) {
   const radical_data = RADICAL_MAPPING[RADK[radical] || radical];
-  if (radical_data) {
-    app.radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical][property] = is_selected;
-  }
-  if (property != 'lookalike_selected' && app.include_similar && LOOKALIKES[radical]) {
-    LOOKALIKES[radical].forEach(r => setSelection(r, 'lookalike_selected', is_selected));
-  }
+  if (radical_data) app.radical_selection[radical_data.strokes][RADK_DISPLAY[radical] || radical][property] = true;
 }
 
 function initialiseRadicalSelection() {
