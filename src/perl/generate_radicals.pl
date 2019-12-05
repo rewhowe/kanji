@@ -1,5 +1,3 @@
-#!/usr/local/bin/perl
-
 # 次のようなファーマットのJSON形式に変換する
 # {
 #   "一": {
@@ -21,8 +19,9 @@ use feature 'state';
 
 use constant RADKFILES => ('radkfile', 'radkfile2');
 
-die "Usage: $0 directory/of/radkfiles/\n" unless $ARGV[0];
-open(my $output, '>:encoding(utf-8)', 'radicals.json') or die "Could not open radicals.json for writing\n";
+die "Usage: $0 directory/of/radkfiles/\n" unless @ARGV == 2;
+my $outputFilename = "$ARGV[1]/radicals.json";
+open(my $output, '>:encoding(utf-8)', $outputFilename) or die "Could not open $outputFilename for writing\n";
 
 sub main {
   my %radicalData = parseSourceFiles();
@@ -39,7 +38,7 @@ sub parseSourceFiles {
   my %radicalData = ();
 
   foreach my $filename (RADKFILES) {
-    open(my $radkfile, '<:encoding(euc-jp)', $ARGV[0] . $filename) or die "Could not open $ARGV[0]\n";
+    open(my $radkfile, '<:encoding(euc-jp)', $ARGV[0] . $filename) or die "Could not open $ARGV[0]$filename\n";
 
     while (my $line = <$radkfile>) {
       next if $line =~ /^#/; # skip comments

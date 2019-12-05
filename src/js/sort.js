@@ -2,6 +2,7 @@
 const STROKE_ORDER_JSON_URL = 'https://rewhowe.github.io/kanji/src/stroke_order.json';
 let STROKE_ORDER = [];
 
+// TODO: replace with lazy load and store in local storage
 axios.get(STROKE_ORDER_JSON_URL)
 .then(function (response) {
   STROKE_ORDER = response.data;

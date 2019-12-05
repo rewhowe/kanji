@@ -2,30 +2,13 @@
   <head>
     <title>Search Kanji By Parts</title>
     <meta charset="UTF-8">
-    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/app.css"/>
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/lib/reset.css"/>
+
+    <!-- TODO: minify -->
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/css/app.css"/>
+    <!-- <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/kanji.min.css"/> -->
   </head>
   <body>
-    <!--
-      TODO
-            .-----------------. () 倉頡輸入法も含む
-            |     部首検索    | () 似てる部首も含む
-            '-----------------'
-
-      .-----------------------------.
-      |          候補リスト         |
-      '-----------------------------'
-
-      .-----------------------------.
-      | 1 | 一｜ノ乙亅              |
-      | 2 | 二亠人化个儿入ハ并冂... |
-      | 3 | 込口囗土士夂夕大女子... |
-      | 4 | 老心戈戸手支攵文斗斤... |
-                  ...
-      | 14 | 鼻齊                   |
-      | 17 | 龠                     |
-      '-----------------------------'
-    -->
     <div id="app" class="app">
       <div>
         <input type="text" v-model="input" v-on:change="lookup">
@@ -64,8 +47,11 @@
     </div>
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
-    <script async src="./src/compat.js"></script>
-    <script async src="./src/sort.js"></script>
-    <script async src="./src/app.js"></script>
+
+    <!-- TODO: concatenate & minify -->
+    <script async src="./src/js/compat.js"></script>
+    <script async src="./src/js/sort.js"></script>
+    <script async src="./src/js/app.js"></script>
+    <!-- <script async type="text/javascript" src="./public/js/kanji.min.js"></script> -->
   </body>
 </html>

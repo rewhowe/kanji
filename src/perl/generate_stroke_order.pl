@@ -1,5 +1,3 @@
-#!/usr/local/bin/perl
-
 # 次のようなファーマットのJSON形式に変換する
 # [
 #   "一": 0,
@@ -16,8 +14,9 @@ use warnings;
 
 use LWP::Simple qw(get);
 
-die "Usage: $0 url_of_strokes_csv\n" unless $ARGV[0];
-open(my $output, '>:encoding(utf-8)', 'stroke_order.json') or die "Could not open stroke_order.json for writing\n";
+die "Usage: $0 url_of_strokes_csv directory/of/output/\n" unless @ARGV == 2;
+my $outputFilename = "$ARGV[1]/stroke_order.json";
+open(my $output, '>:encoding(utf-8)', $outputFilename) or die "Could not open $outputFilename for writing\n";
 
 sub main {
   my $response = get($ARGV[0]);
