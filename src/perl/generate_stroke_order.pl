@@ -14,10 +14,17 @@ use warnings;
 
 use LWP::Simple qw(get);
 
-die "Usage: $0 url_of_strokes_csv directory/of/output/\n" unless @ARGV == 2;
+use lib do {
+  (my $dirname = $0) =~ s/\/[^\/]+$/\//;
+  $dirname;
+};
+use Kradfile;
 
-my $strokesDataUrl = $ARGV[0];
-my $outputFilename = "$ARGV[1]/stroke_order.json";
+die "Usage: $0 directory/of/kradfiles/ url_of_strokes_csv directory/of/output/\n" unless @ARGV == 3;
+
+my $kradDirectory  = $ARGV[0];
+my $strokesDataUrl = $ARGV[1];
+my $outputFilename = "$ARGV[2]/stroke_order.json";
 
 open(my $output, '>:encoding(utf-8)', $outputFilename) or die "Could not open $outputFilename for writing\n";
 
@@ -38,12 +45,15 @@ sub parseResponse {
   my $response = shift;
 
   my @kanjiLines = split("\n", $response);
+  my $kradfile = Kradfile->new(directory => $kradDirectory);
 
   my @kanji = ();
   foreach my $line (@kanjiLines) {
     my @matches = ($line =~ /(.)\s+(\d+)/);
 
     die "Error while parsing $line\n" if !@matches || @matches != 2;
+
+    next unless $kradfile->hasKanji($matches[0]);
 
     push(@kanji, {kanji => $matches[0], strokes => $matches[1]});
   }
@@ -67,3 +77,5 @@ sub outputJson {
 }
 
 main();
+
+close($output);
