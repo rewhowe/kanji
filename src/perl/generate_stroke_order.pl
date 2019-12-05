@@ -15,11 +15,14 @@ use warnings;
 use LWP::Simple qw(get);
 
 die "Usage: $0 url_of_strokes_csv directory/of/output/\n" unless @ARGV == 2;
+
+my $strokesDataUrl = $ARGV[0];
 my $outputFilename = "$ARGV[1]/stroke_order.json";
+
 open(my $output, '>:encoding(utf-8)', $outputFilename) or die "Could not open $outputFilename for writing\n";
 
 sub main {
-  my $response = get($ARGV[0]);
+  my $response = get($strokesDataUrl);
 
   my @kanji = parseResponse($response);
 

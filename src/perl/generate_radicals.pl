@@ -19,8 +19,11 @@ use feature 'state';
 
 use constant RADKFILES => ('radkfile', 'radkfile2');
 
-die "Usage: $0 directory/of/radkfiles/\n" unless @ARGV == 2;
+die "Usage: $0 directory/of/radkfiles/ directory/of/output/\n" unless @ARGV == 2;
+
+my $radkDirectory  = $ARGV[0];
 my $outputFilename = "$ARGV[1]/radicals.json";
+
 open(my $output, '>:encoding(utf-8)', $outputFilename) or die "Could not open $outputFilename for writing\n";
 
 sub main {
@@ -31,14 +34,14 @@ sub main {
     $a->{radical}    cmp $b->{radical}
   } values(%radicalData);
 
-  outputJson(\@radicalData);
+  outputJson(@radicalData);
 }
 
 sub parseSourceFiles {
   my %radicalData = ();
 
   foreach my $filename (RADKFILES) {
-    open(my $radkfile, '<:encoding(euc-jp)', $ARGV[0] . $filename) or die "Could not open $ARGV[0]$filename\n";
+    open(my $radkfile, '<:encoding(euc-jp)', $radkDirectory . $filename) or die "Could not open $radkDirectory$filename\n";
 
     while (my $line = <$radkfile>) {
       next if $line =~ /^#/; # skip comments
@@ -84,7 +87,7 @@ sub makeRadicalData {
 }
 
 sub outputJson {
-  my @radicalData = @{ $_[0] };
+  my @radicalData = @_;
 
   my $numRadicals = @radicalData;
   return unless @radicalData > 0;
