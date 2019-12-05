@@ -28,9 +28,26 @@ sub read {
   my $self = shift;
   my ($directory) = @_;
 
-  my %kanji = ();
+  my %kanjis = ();
 
-  return \%kanji;
+  foreach my $filename (KRADFILES) {
+    open(my $kradfile, '<:encoding(euc-jp)', $directory . $filename) or die "Could not open $directory$filename\n";
+
+    while (my $line = <$kradfile>) {
+      next if $line =~ /^#/; # skip comments
+
+      my @matches = ($line =~ /^(.)/);
+
+      die "Error while parsing $line\n" if !@matches || @matches != 1;
+
+      my $kanji = shift @matches;
+      $kanjis{$kanji} = 1;
+    }
+
+    close($kradfile);
+  }
+
+  return \%kanjis;
 }
 
 1;

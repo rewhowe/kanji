@@ -24,8 +24,43 @@ my $kradDirectory  = $ARGV[0];
 my $inputFilepath  = $ARGV[1];
 my $outputFilepath = $ARGV[2];
 
+open(my $input, '<:encoding(utf-8)', $inputFilepath) or die "Could not open $inputFilepath\n";
+open(my $output, '>:encoding(utf-8)', $outputFilepath) or die "Could not open $outputFilepath\n";
+
 sub main {
   my $kradfile = Kradfile->new(directory => $kradDirectory);
+
+  my $i = 0;
+  my %kanjiOrder = ();
+
+  while (my $kanji = getc($input)) {
+    next unless $kradfile->hasKanji($kanji);
+
+    $kanjiOrder{$kanji} = $i;
+    $i++;
+  }
+
+  outputJson(\%kanjiOrder);
 };
 
+sub outputJson {
+  my %kanjiOrder = %{ $_[0] };
+
+  my $numKanji = keys %kanjiOrder;
+
+  print $output '{';
+
+  my $i = 0;
+  foreach my $kanji (keys %kanjiOrder) {
+    print $output sprintf('"%s":%d', $kanji, $kanjiOrder{$kanji});
+    print $output ',' unless ($i + 1) == $numKanji;
+    $i++;
+  }
+
+  print $output '}';
+}
+
 main();
+
+close($input);
+close($output);
