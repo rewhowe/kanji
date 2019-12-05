@@ -1,9 +1,9 @@
 # 次のようなファーマットのJSON形式に変換する
 # [
-#   "日": 0,
-#   "一": 1,
-#   "国": 2,
-#   "会": 3,
+#   "日": 1,
+#   "一": 2,
+#   "国": 3,
+#   "会": 4,
 #   ...
 # ]
 #
@@ -30,7 +30,7 @@ open(my $output, '>:encoding(utf-8)', $outputFilepath) or die "Could not open $o
 sub main {
   my $kradfile = Kradfile->new(directory => $kradDirectory);
 
-  my $i = 0;
+  my $i = 1;
   my %kanjiOrder = ();
 
   while (my $kanji = getc($input)) {
@@ -50,7 +50,7 @@ sub outputJson {
 
   print $output '{';
 
-  my $i = 1;
+  my $i = 0;
   foreach my $kanji (keys %kanjiOrder) {
     print $output sprintf('"%s":%d', $kanji, $kanjiOrder{$kanji});
     print $output ',' unless ($i + 1) == $numKanji;
