@@ -52,7 +52,7 @@ sub parseResponse {
 sub outputJson {
   my @sortedKanji = @_;
 
-  print $output '[';
+  print $output '{';
 
   my $numKanji = @sortedKanji;
 
@@ -61,7 +61,7 @@ sub outputJson {
     print $output ',' unless ($i + 1) == $numKanji;
   }
 
-  print $output ']';
+  print $output '}';
 }
 
 main();
