@@ -50,7 +50,7 @@ sub outputJson {
 
   print $output '{';
 
-  my $i = 0;
+  my $i = 1;
   foreach my $kanji (keys %kanjiOrder) {
     print $output sprintf('"%s":%d', $kanji, $kanjiOrder{$kanji});
     print $output ',' unless ($i + 1) == $numKanji;

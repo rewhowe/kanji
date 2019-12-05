@@ -69,7 +69,7 @@ sub outputJson {
   my $numKanji = @sortedKanji;
 
   for (my $i = 0; $i < $numKanji; $i++) {
-    print $output sprintf('"%s":%d', $sortedKanji[$i]->{kanji}, $i);
+    print $output sprintf('"%s":%d', $sortedKanji[$i]->{kanji}, $i + 1);
     print $output ',' unless ($i + 1) == $numKanji;
   }
 

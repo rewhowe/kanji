@@ -4,7 +4,7 @@
 // * styling (including loading spinner)
 // * help charts for lookalikes and alternate forms
 // * compile js / css
-const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/src/radicals.json';
+const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/radicals.json';
 
 let RADICAL_MAPPING = undefined;
 
