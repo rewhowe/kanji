@@ -2,10 +2,10 @@
 
 # 次のようなファーマットのJSON形式に変換する
 # [
-#   "一",
-#   "丨",
-#   "丶",
-#   "丿"
+#   "一": 0,
+#   "丨": 1,
+#   "丶": 2,
+#   "丿": 3,
 #   ...
 # ]
 #
@@ -57,7 +57,7 @@ sub outputJson {
   my $numKanji = @sortedKanji;
 
   for (my $i = 0; $i < $numKanji; $i++) {
-    print $output "\"$sortedKanji[$i]->{kanji}\"";
+    print $output sprintf('"%s":%d', $sortedKanji[$i]->{kanji}, $i);
     print $output ',' unless ($i + 1) == $numKanji;
   }
 
