@@ -37,11 +37,11 @@
         </li>
         <li>
           並び替え
-          <input id="sort_stroke" type="radio" value="stroke" v-model="sort" v-on:change="sortCandidates(app.candidates)">
+          <input id="sort_stroke" type="radio" value="stroke" v-model="sort" v-on:change="sortCandidates">
           <label for="sort_stroke">画数</label>
-          <input id="sort_freq_ja" type="radio" value="freq_ja" v-model="sort" v-on:change="sortCandidates(app.candidates)">
+          <input id="sort_freq_ja" type="radio" value="freq_ja" v-model="sort" v-on:change="sortCandidates">
           <label for="sort_freq_ja">日本語での使用頻度</label>
-          <input id="sort_freq_cn" type="radio" value="freq_cn" v-model="sort" v-on:change="sortCandidates(app.candidates)">
+          <input id="sort_freq_cn" type="radio" value="freq_cn" v-model="sort" v-on:change="sortCandidates">
           <label for="sort_freq_cn">中国語での使用頻度</label>
         </li>
       </ul>
@@ -65,6 +65,7 @@
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
     <script async src="./src/compat.js"></script>
+    <script async src="./src/sort.js"></script>
     <script async src="./src/app.js"></script>
   </body>
 </html>

@@ -27,7 +27,7 @@ const app = new Vue({
 
       updateSelection();
 
-      app.candidates = app.sortCandidates(candidates);
+      app.candidates = sortBy(candidates, app.sort);
 
       // TODO: hide loading
     },
@@ -45,9 +45,8 @@ const app = new Vue({
       app.lookup();
     },
 
-    sortCandidates: function (candidates) {
-      // TODO
-      return candidates;
+    sortCandidates: function () {
+      app.candidates = sortBy(app.candidates, app.sort);
     },
   },
 });
@@ -77,7 +76,7 @@ function getCandidates(radicals) {
     if (candidates.length == 0) return;
   });
 
-  return new Set(candidates);
+  return [...new Set(candidates)];
 }
 
 function getKanjiWithRadical(radical) {
