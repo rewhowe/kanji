@@ -1,5 +1,4 @@
 // TODO:
-// * sort result kanji by stroke count OR by frequency in chinese
 // * disable radical combinations which aren't possible
 // * styling (including loading spinner)
 // * help charts for lookalikes and alternate forms

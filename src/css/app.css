@@ -17,16 +17,27 @@
 
 .radical {
   padding: 0.3rem;
-  border: 1px solid;
+  border: 1px solid #000;
   margin: 0.1rem;
   line-height: 2rem;
   position: relative;
 }
 
-.radical:hover:not(.unavailable),
-.radical.selected:not(.unavailable) {
+.radical:hover:not(.unavailable) {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.1);
+}
+
+.radical:active:hover:not(.unavailable) {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.4);
+  color: #FFF;
+}
+
+.radical.selected:not(.unavailable) {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+  color: #FFF;
 }
 
 .radical.unavailable {
