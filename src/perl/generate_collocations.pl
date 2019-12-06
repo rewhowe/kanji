@@ -54,8 +54,6 @@ sub processRadicals {
 
   foreach my $radical (@radicals) {
     foreach my $otherRadical (@radicals) {
-      next if $radical eq $otherRadical;
-
       @{$collocationsRef->{$radical}} = () unless exists $collocationsRef->{$radical};
 
       push(@{$collocationsRef->{$radical}}, $otherRadical);
