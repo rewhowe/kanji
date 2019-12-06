@@ -40,11 +40,11 @@ sub main {
     $i++;
   }
 
-  outputJson(\%kanjiOrder);
+  outputJson(%kanjiOrder);
 };
 
 sub outputJson {
-  my %kanjiOrder = %{ $_[0] };
+  my (%kanjiOrder) = @_;
 
   my $numKanji = keys %kanjiOrder;
 
