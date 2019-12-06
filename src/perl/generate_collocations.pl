@@ -2,10 +2,12 @@
 # {
 #   "ノ": ["人", "大", "二", ...],
 #   "一": ["｜", "口", "亅", ...],
-#   ...
+#   ...,
+#   "ノ一": ["弓", "大", "｜", ...],
 # }
 #
-# バリューはキーの部首と同じ漢字に一緒に出る部首の配列
+# キーは独立の部首の場合：バリューはキーの部首を含む漢字に一緒に出る部首の配列
+# キーは2つの部首（辞書式順序）の場合：バリューは両方の部首を含む漢字に一緒に出る部首の配列
 
 use strict;
 use warnings;
@@ -52,11 +54,21 @@ sub parseSourceFiles {
 sub processRadicals {
   my ($collocationsRef, @radicals) = @_;
 
-  foreach my $radical (@radicals) {
-    foreach my $otherRadical (@radicals) {
-      @{$collocationsRef->{$radical}} = () unless exists $collocationsRef->{$radical};
+  foreach my $radical1 (@radicals) {
+    foreach my $radical2 (@radicals) {
+      next if $radical1 eq $radical2;
 
-      push(@{$collocationsRef->{$radical}}, $otherRadical);
+      @{$collocationsRef->{$radical1}} = () unless exists $collocationsRef->{$radical1};
+
+      push(@{$collocationsRef->{$radical1}}, $radical2);
+
+      my $pair = join('', sort($radical1, $radical2));
+      @{$collocationsRef->{$pair}} = () unless exists $collocationsRef->{$pair};
+
+      foreach my $radical3 (@radicals) {
+        next if $radical3 eq $radical1 || $radical3 eq $radical2;
+        push(@{$collocationsRef->{$pair}}, $radical3);
+      }
     }
   }
 }
