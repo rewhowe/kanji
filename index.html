@@ -9,10 +9,15 @@
     <!-- <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/kanji.min.css"/> -->
   </head>
   <body>
-    <div id="app" class="app">
+    <div id="app" class="app" :class="{ ready: ready }">
+      <div class="splash">
+        <i class="loading"></i>
+      </div>
+
       <div>
         <input type="text" v-model="input" v-on:change="lookup">
       </div>
+
       <ul>
         <li>
           <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
@@ -28,9 +33,12 @@
           <label for="sort_freq_cn">中国語での使用頻度</label>
         </li>
       </ul>
+
       <div class="candidate-list">
+        <i v-if="searching" v-model="searching" class="loading"></i>
         <span v-for="candidate in candidates" :key="candidate" class="candidate">{{ candidate }}</span>
       </div>
+
       <table>
         <tbody>
           <tr v-for="(radicals, stroke_num) in radical_selection" :key="stroke_num">
@@ -44,11 +52,13 @@
                   selected: data.selected,
                   'lookalike-selected': data.lookalike_selected,
                   unavailable: !data.available
-                }">{{ data.display }}</span></td>
+                }">{{ data.display }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
 

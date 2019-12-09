@@ -1,5 +1,4 @@
 // TODO:
-// * styling (including loading spinner + error splash)
 // * help charts for lookalikes and alternate forms
 // * compile js / css
 
@@ -17,10 +16,12 @@ const app = new Vue({
     include_similar: false,
     radical_selection: undefined,
     sort: 'stroke',
+    ready: false,
+    searching: false,
   },
   methods: {
     lookup: function () {
-      // TODO: show loading
+      app.searching = true;
 
       const radicals = getRadicals();
       const candidates = getCandidates(radicals);
@@ -29,10 +30,12 @@ const app = new Vue({
 
       sortBy(candidates, app.sort, candidates => app.candidates = candidates);
 
-      // TODO: hide loading
+      app.searching = false;
     },
 
     selectRadical: function (radical) {
+      app.searching = true;
+
       const radical_data = RADICAL_MAPPING[radical];
       const is_selected = app.radical_selection[radical_data.strokes][radical].selected;
       const is_available = app.radical_selection[radical_data.strokes][radical].available;
@@ -49,7 +52,9 @@ const app = new Vue({
     },
 
     sortCandidates: function () {
+      app.searching = true;
       sortBy(app.candidates, app.sort, candidates => app.candidates = candidates);
+      app.searching = false;
     },
   },
 });
@@ -196,8 +201,6 @@ function initialiseRadicalSelection(is_all_available) {
   app.radical_selection = radical_selection;
 }
 
-// TODO: handle error case
-// TODO: show loading
 getJson(RADICALS_JSON_URL, function (data) {
   RADICAL_MAPPING = data;
 
@@ -206,6 +209,6 @@ getJson(RADICALS_JSON_URL, function (data) {
   getJson(COLLOCATIONS_JSON_URL, function (data) {
     COLLOCATIONS = data;
 
-    // TODO: hide loading
+    app.ready = true;
   });
 });
