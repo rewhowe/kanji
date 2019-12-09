@@ -23,13 +23,34 @@
   display: none;
 }
 
-.candidate-list {
-  height: 15rem;
-  overflow: scroll;
+.candidate-list-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid;
+  position: relative;
+}
+
+.candidate-list-container .more {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  background: linear-gradient(180deg, transparent, #ffffff);
+}
+
+.candidate-list {
+  height: 12rem;
+  overflow: scroll;
   padding: 0.4rem;
-  line-height: 1.4rem;
-  font-size: 20px;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.candidate-list::-webkit-scrollbar {
+  display: none;
 }
 
 .candidate-list .candidate {
@@ -83,25 +104,25 @@
   display: block;
   text-align: center;
   font-size: 40px;
-  -webkit-animation: spin 4s linear infinite;
-  -moz-animation: spin 4s linear infinite;
-  animation: spin 4s linear infinite;
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
-.loading:before {
+.loading::before {
   content: '\25cc';
 }
-.loading:after {
+.loading::after {
   content: '';
   background: linear-gradient(rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.8) 50%, #ffffff 66%);
 }
-.loading:before,
-.loading:after {
+.loading::before,
+.loading::after {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
-@-moz-keyframes spin { 100% { -moz-transform: rotate(1440deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(1440deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(1440deg); transform:rotate(1440deg); } }
+@-moz-keyframes spin { 100% { -moz-transform: rotate(720deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(720deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(720deg); transform:rotate(720deg); } }
