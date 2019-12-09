@@ -1,14 +1,13 @@
 // TODO:
-// * lazy-load and caching of json urls
-// * styling (including loading spinner)
+// * styling (including loading spinner + error splash)
 // * help charts for lookalikes and alternate forms
 // * compile js / css
 
 const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/radicals.json';
 const COLLOCATIONS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/collocations.json';
 
-let RADICAL_MAPPING;
-let COLLOCATIONS;
+let RADICAL_MAPPING = [];
+let COLLOCATIONS = [];
 
 const app = new Vue({
   el: '#app',
@@ -28,7 +27,7 @@ const app = new Vue({
 
       updateSelection();
 
-      app.candidates = sortBy(candidates, app.sort);
+      sortBy(candidates, app.sort, candidates => app.candidates = candidates);
 
       // TODO: hide loading
     },
@@ -50,7 +49,7 @@ const app = new Vue({
     },
 
     sortCandidates: function () {
-      app.candidates = sortBy(app.candidates, app.sort);
+      sortBy(app.candidates, app.sort, candidates => app.candidates = candidates);
     },
   },
 });
@@ -197,21 +196,16 @@ function initialiseRadicalSelection(is_all_available) {
   app.radical_selection = radical_selection;
 }
 
-// TODO: move to helpers
-function intersect(a, b) {
-  return a.filter(element => b.includes(element));
-}
-
-// TODO: move to helpers and save in local storage
 // TODO: handle error case
-axios.get(RADICALS_JSON_URL)
-.then(function (response) {
-  RADICAL_MAPPING = response.data;
+// TODO: show loading
+getJson(RADICALS_JSON_URL, function (data) {
+  RADICAL_MAPPING = data;
 
   initialiseRadicalSelection(true);
 
-  axios.get(COLLOCATIONS_JSON_URL)
-  .then(function (response) {
-    COLLOCATIONS = response.data;
+  getJson(COLLOCATIONS_JSON_URL, function (data) {
+    COLLOCATIONS = data;
+
+    // TODO: hide loading
   });
 });
