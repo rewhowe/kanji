@@ -23,32 +23,38 @@ const app = new Vue({
     lookup: function () {
       app.searching = true;
 
-      const radicals = getRadicals();
-      const candidates = getCandidates(radicals);
+      // Delay so that loading spinner can render
+      window.setTimeout(function () {
+        const radicals = getRadicals();
+        const candidates = getCandidates(radicals);
 
-      updateSelection();
+        updateSelection();
 
-      sortBy(candidates, app.sort, candidates => app.candidates = candidates);
+        sortBy(candidates, app.sort, candidates => app.candidates = candidates);
 
-      app.searching = false;
+        app.searching = false;
+      }, 1);
     },
 
     selectRadical: function (radical) {
       app.searching = true;
 
-      const radical_data = RADICAL_MAPPING[radical];
-      const is_selected = app.radical_selection[radical_data.strokes][radical].selected;
-      const is_available = app.radical_selection[radical_data.strokes][radical].available;
+      // Delay so that loading spinner can render
+      window.setTimeout(function () {
+        const radical_data = RADICAL_MAPPING[radical];
+        const is_selected = app.radical_selection[radical_data.strokes][radical].selected;
+        const is_available = app.radical_selection[radical_data.strokes][radical].available;
 
-      if (!is_available && !is_selected) return;
+        if (!is_available && !is_selected) return;
 
-      const display_radical = RADK_DISPLAY[radical] || radical;
-      app.input = app.input.replace(new RegExp(display_radical, 'g'), '');
-      if (!is_selected) {
-        app.input = app.input + display_radical;
-      }
+        const display_radical = RADK_DISPLAY[radical] || radical;
+        app.input = app.input.replace(new RegExp(display_radical, 'g'), '');
+        if (!is_selected) {
+          app.input = app.input + display_radical;
+        }
 
-      app.lookup();
+        app.lookup();
+      }, 1);
     },
 
     sortCandidates: function () {
