@@ -9,7 +9,7 @@ let RADICAL_MAPPING = [];
 let COLLOCATIONS = [];
 
 const app = new Vue({
-  el: '#app',
+  el: undefined, // Delay mounting
   data: {
     input: '',
 
@@ -20,7 +20,6 @@ const app = new Vue({
     candidates: [],
     radical_selection: undefined,
 
-    ready: false,
     searching: false,
   },
   methods: {
@@ -68,6 +67,35 @@ const app = new Vue({
       app.searching = false;
     },
   },
+
+  template: `
+    <div class="app">
+      <div>
+        <input type="text" v-model="input" v-on:change="lookup">
+      </div>
+
+      <ul>
+        <li>
+          <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
+          <label for="include_similar">似てる部首も含む&#x1F441;</label>
+        </li>
+        <li>
+          並び替え
+          <sort-option v-for="(label, order) in sort_options"
+                       v-bind:key="order"
+                       v-bind:order="order"
+                       v-bind:label="label"
+                       v-bind:sort="sort"
+                       v-on:sort-candidates="sortCandidates"></sort-option>
+        </li>
+      </ul>
+
+      <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
+
+      <radical-selection v-bind:radical_selection="radical_selection"
+                         v-on:select-radical="selectRadical"></radical-selection>
+    </div>
+  `,
 });
 
 function getRadicals() {
@@ -220,6 +248,6 @@ getJson(RADICALS_JSON_URL, function (data) {
   getJson(COLLOCATIONS_JSON_URL, function (data) {
     COLLOCATIONS = data;
 
-    app.ready = true;
+    app.$mount('#app');
   });
 });
