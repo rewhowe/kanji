@@ -41,15 +41,15 @@ const app = new Vue({
 
       // Delay so that loading spinner can render
       window.setTimeout(function () {
-        const radical_data = RADICAL_MAPPING[radical];
-        const is_selected = app.radical_selection[radical_data.strokes][radical].selected;
-        const is_available = app.radical_selection[radical_data.strokes][radical].available;
+        const radical_data          = RADICAL_MAPPING[radical];
+        const is_currently_selected = app.radical_selection[radical_data.strokes][radical].selected;
+        const is_available          = app.radical_selection[radical_data.strokes][radical].available;
 
-        if (!is_available && !is_selected) return;
+        if (!is_available && !is_currently_selected) return;
 
         const display_radical = RADK_DISPLAY[radical] || radical;
         app.input = app.input.replace(new RegExp(display_radical, 'g'), '');
-        if (!is_selected) {
+        if (!is_currently_selected) {
           app.input = app.input + display_radical;
         }
 
@@ -57,7 +57,8 @@ const app = new Vue({
       }, 1);
     },
 
-    sortCandidates: function () {
+    sortCandidates: function (order) {
+      app.sort = order;
       app.searching = true;
       sortBy(app.candidates, app.sort, candidates => app.candidates = candidates);
       app.searching = false;

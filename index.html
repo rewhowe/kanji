@@ -25,12 +25,15 @@
         </li>
         <li>
           並び替え
-          <input id="sort_stroke" type="radio" value="stroke" v-model="sort" v-on:change="sortCandidates">
-          <label for="sort_stroke">画数</label>
-          <input id="sort_freq_ja" type="radio" value="freq_ja" v-model="sort" v-on:change="sortCandidates">
-          <label for="sort_freq_ja">日本語での使用頻度</label>
-          <input id="sort_freq_cn" type="radio" value="freq_cn" v-model="sort" v-on:change="sortCandidates">
-          <label for="sort_freq_cn">中国語での使用頻度</label>
+          <sort-option order="stroke" label="画数" v-bind:sort="sort" v-on:sort-candidates="sortCandidates"></sort-option>
+          <sort-option order="freq_ja"
+                       label="日本語での使用頻度"
+                       v-bind:sort="sort"
+                       v-on:sort-candidates="sortCandidates"></sort-option>
+          <sort-option order="freq_cn"
+                       label="中国語での使用頻度"
+                       v-bind:sort="sort"
+                       v-on:sort-candidates="sortCandidates"></sort-option>
         </li>
       </ul>
 
@@ -46,8 +49,9 @@
     <script async src="./src/js/helpers.js"></script>
     <script async src="./src/js/compat.js"></script>
     <script async src="./src/js/sort.js"></script>
-    <script async src="./src/js/candidate_list.js"></script>
-    <script async src="./src/js/radical_selection.js"></script>
+    <script async src="./src/js/components/sort_option.js"></script>
+    <script async src="./src/js/components/candidate_list.js"></script>
+    <script async src="./src/js/components/radical_selection.js"></script>
     <script async src="./src/js/app.js"></script>
     <!-- <script async type="text/javascript" src="./public/js/kanji.min.js"></script> -->
   </body>

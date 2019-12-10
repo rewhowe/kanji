@@ -1,6 +1,6 @@
 Vue.component('radical-selection', {
   props: {
-    radical_selection: [],
+    radical_selection: Array,
   },
   template: `
     <table>

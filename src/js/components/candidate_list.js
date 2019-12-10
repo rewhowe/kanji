@@ -1,7 +1,7 @@
 Vue.component('candidate-list', {
   props: {
-    searching: false,
-    candidates: [],
+    searching: Boolean,
+    candidates: Array,
   },
   template: `
     <div class="candidate-list-container">
