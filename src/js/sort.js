@@ -7,6 +7,12 @@ const FREQ_JA_ORDER_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/freq
 // 並び替え：中国語での使用頻度が多い順
 const FREQ_CN_ORDER_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/freq_cn_order.json';
 
+const SORT_OPTIONS = {
+  stroke: '画数',
+  freq_ja: '日本語での使用頻度',
+  freq_cn: '中国語での使用頻度',
+};
+
 function sortBy(candidates, order, callback) {
   let order_json_url;
 

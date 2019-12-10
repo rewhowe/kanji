@@ -12,10 +12,14 @@ const app = new Vue({
   el: '#app',
   data: {
     input: '',
-    candidates: [],
+
     include_similar: false,
-    radical_selection: undefined,
+    sort_options: SORT_OPTIONS,
     sort: 'stroke',
+
+    candidates: [],
+    radical_selection: undefined,
+
     ready: false,
     searching: false,
   },

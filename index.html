@@ -25,13 +25,10 @@
         </li>
         <li>
           並び替え
-          <sort-option order="stroke" label="画数" v-bind:sort="sort" v-on:sort-candidates="sortCandidates"></sort-option>
-          <sort-option order="freq_ja"
-                       label="日本語での使用頻度"
-                       v-bind:sort="sort"
-                       v-on:sort-candidates="sortCandidates"></sort-option>
-          <sort-option order="freq_cn"
-                       label="中国語での使用頻度"
+          <sort-option v-for="(label, order) in sort_options"
+                       v-bind:key="order"
+                       v-bind:order="order"
+                       v-bind:label="label"
                        v-bind:sort="sort"
                        v-on:sort-candidates="sortCandidates"></sort-option>
         </li>
@@ -39,7 +36,8 @@
 
       <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
 
-      <radical-selection v-bind:radical_selection="radical_selection" v-on:select-radical="selectRadical"></radical-selection>
+      <radical-selection v-bind:radical_selection="radical_selection"
+                         v-on:select-radical="selectRadical"></radical-selection>
     </div>
 
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
