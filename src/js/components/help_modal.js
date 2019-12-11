@@ -7,19 +7,15 @@ Vue.component('help-modal', {
   },
   template: `
     <div>
-      <i class="help-icon" v-on:click="display = !display">?</i>
+      <i class="help-icon" v-on:click="display = true">?</i>
 
-      <div v-if="display" class="help-overlay" v-on:click="display = !display">
-        <div class="help-modal">
+      <div v-if="display" class="help-overlay" v-on:click="display = false">
+        <div class="help-modal" v-on:click.stop>
           <div class="help-tabs">
-            <label for="help_tab_similar">
-              <input id="help_tab_similar" type="radio" name="help_tab" value="similar" v-model="tab">
-              似てる部首一覧
-            </label>
-            <label for="help_tab_variant">
-              <input id="help_tab_variant" type="radio" name="help_tab" value="variant" v-model="tab">
-              変形一覧
-            </label>
+            <input id="help_tab_similar" type="radio" name="help_tab" value="similar" v-model="tab">
+            <label for="help_tab_similar" class="help-tab">似てる部首一覧</label>
+            <input id="help_tab_variant" type="radio" name="help_tab" value="variant" v-model="tab">
+            <label for="help_tab_variant" class="help-tab">変形一覧</label>
           </div>
 
           <div v-html="help_text"></div>
@@ -68,6 +64,15 @@ Vue.component('help-modal', {
           return [];
       }
     },
+  },
+
+  created: function () {
+    const self = this;
+    document.addEventListener('keyup', function (e) {
+      if (e.keyCode === 27) { // ESC
+        self.display = false;
+      }
+    });
   },
 
   methods: {
