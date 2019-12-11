@@ -9,57 +9,10 @@
     <!-- <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/kanji.min.css"/> -->
   </head>
   <body>
-    <div id="app" class="app" :class="{ ready: ready }">
+    <div id="app">
       <div class="splash">
         <i class="loading"></i>
       </div>
-
-      <div>
-        <input type="text" v-model="input" v-on:change="lookup">
-      </div>
-
-      <ul>
-        <li>
-          <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
-          <label for="include_similar">似てる部首も含む&#x1F441;</label>
-        </li>
-        <li>
-          並び替え
-          <input id="sort_stroke" type="radio" value="stroke" v-model="sort" v-on:change="sortCandidates">
-          <label for="sort_stroke">画数</label>
-          <input id="sort_freq_ja" type="radio" value="freq_ja" v-model="sort" v-on:change="sortCandidates">
-          <label for="sort_freq_ja">日本語での使用頻度</label>
-          <input id="sort_freq_cn" type="radio" value="freq_cn" v-model="sort" v-on:change="sortCandidates">
-          <label for="sort_freq_cn">中国語での使用頻度</label>
-        </li>
-      </ul>
-
-      <div class="candidate-list-container">
-        <i v-if="searching" v-model="searching" class="loading"></i>
-        <div class="candidate-list">
-          <span v-for="candidate in candidates" :key="candidate" class="candidate">{{ candidate }}</span>
-        </div>
-        <div class="more"></div>
-      </div>
-
-      <table>
-        <tbody>
-          <tr v-for="(radicals, stroke_num) in radical_selection" :key="stroke_num">
-            <th>{{ stroke_num }}</th>
-            <td>
-              <span v-for="(data, radical) in radicals"
-                :key="radical"
-                v-on:click="selectRadical(radical)"
-                class="radical"
-                :class="{
-                  selected: data.selected,
-                  'lookalike-selected': data.lookalike_selected,
-                  unavailable: !data.available
-                }">{{ data.display }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
@@ -69,6 +22,9 @@
     <script async src="./src/js/helpers.js"></script>
     <script async src="./src/js/compat.js"></script>
     <script async src="./src/js/sort.js"></script>
+    <script async src="./src/js/components/sort_option.js"></script>
+    <script async src="./src/js/components/candidate_list.js"></script>
+    <script async src="./src/js/components/radical_selection.js"></script>
     <script async src="./src/js/app.js"></script>
     <!-- <script async type="text/javascript" src="./public/js/kanji.min.js"></script> -->
   </body>
