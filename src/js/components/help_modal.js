@@ -18,9 +18,9 @@ Vue.component('help-modal', {
             <label for="help_tab_variant" class="help-tab">変形一覧</label>
           </div>
 
-          <div v-html="help_text"></div>
+          <div v-html="help_text" class="help-text"></div>
 
-          <table>
+          <table class="help-input-chart">
             <thead>
               <tr v-if="tab === 'similar'">
                 <td>入力</td>

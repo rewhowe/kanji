@@ -51,7 +51,7 @@ const app = new Vue({
 
       <div>
         <a href="https://github.com/rewhowe/kanji">GitHub</a>
-        <help-modal>
+        <help-modal></help-modal>
       </div>
     </div>
   `,
