@@ -9,7 +9,7 @@ let RADICAL_MAPPING = [];
 let COLLOCATIONS = [];
 
 const app = new Vue({
-  el: undefined, // Delay mounting
+  el: '#app',
   data: {
     input: '',
 
@@ -22,6 +22,34 @@ const app = new Vue({
 
     searching: false,
   },
+  template: `
+    <div class="app">
+      <div>
+        <input type="text" v-model="input" v-on:change="lookup">
+      </div>
+
+      <ul>
+        <li>
+          <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
+          <label for="include_similar">似てる部首も含む&#x1F441;</label>
+        </li>
+        <li>
+          並び替え
+          <sort-option v-for="(label, order) in sort_options"
+                       v-bind:key="order"
+                       v-bind:order="order"
+                       v-bind:label="label"
+                       v-bind:sort="sort"
+                       v-on:sort-candidates="sortCandidates"></sort-option>
+        </li>
+      </ul>
+
+      <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
+
+      <radical-selection v-bind:radical_selection="radical_selection"
+                         v-on:select-radical="selectRadical"></radical-selection>
+    </div>
+  `,
   methods: {
     lookup: function () {
       app.searching = true;
@@ -66,36 +94,39 @@ const app = new Vue({
       sortBy(app.candidates, app.sort, candidates => app.candidates = candidates);
       app.searching = false;
     },
+
+    initialiseRadicalSelection: function (is_all_available) {
+      const radical_selection = {};
+
+      Object.keys(RADICAL_MAPPING).forEach(function (radical) {
+        const radical_data = RADICAL_MAPPING[radical];
+
+        if (!radical_selection[radical_data.strokes]) radical_selection[radical_data.strokes] = {};
+
+        radical_selection[radical_data.strokes][radical] = {
+          display: RADK_DISPLAY[radical] || radical,
+          selected: false,
+          lookalike_selected: false,
+          available: is_all_available,
+        };
+      });
+
+      this.radical_selection = radical_selection;
+    },
   },
 
-  template: `
-    <div class="app">
-      <div>
-        <input type="text" v-model="input" v-on:change="lookup">
-      </div>
+  beforeMount: function () {
+    getJson(RADICALS_JSON_URL, function (data) {
+      RADICAL_MAPPING = data;
+    });
+    getJson(COLLOCATIONS_JSON_URL, function (data) {
+      COLLOCATIONS = data;
+    });
+  },
 
-      <ul>
-        <li>
-          <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
-          <label for="include_similar">似てる部首も含む&#x1F441;</label>
-        </li>
-        <li>
-          並び替え
-          <sort-option v-for="(label, order) in sort_options"
-                       v-bind:key="order"
-                       v-bind:order="order"
-                       v-bind:label="label"
-                       v-bind:sort="sort"
-                       v-on:sort-candidates="sortCandidates"></sort-option>
-        </li>
-      </ul>
-
-      <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
-
-      <radical-selection v-bind:radical_selection="radical_selection"
-                         v-on:select-radical="selectRadical"></radical-selection>
-    </div>
-  `,
+  mounted: function () {
+    this.initialiseRadicalSelection(true);
+  },
 });
 
 function getRadicals() {
@@ -221,33 +252,3 @@ function setSelection(radical, property) {
   if (radical_data) app.radical_selection[radical_data.strokes][radical][property] = true;
 }
 
-function initialiseRadicalSelection(is_all_available) {
-  const radical_selection = {};
-
-  Object.keys(RADICAL_MAPPING).forEach(function (radical) {
-    const radical_data = RADICAL_MAPPING[radical];
-
-    if (!radical_selection[radical_data.strokes]) radical_selection[radical_data.strokes] = {};
-
-    radical_selection[radical_data.strokes][radical] = {
-      display: RADK_DISPLAY[radical] || radical,
-      selected: false,
-      lookalike_selected: false,
-      available: is_all_available,
-    };
-  });
-
-  app.radical_selection = radical_selection;
-}
-
-getJson(RADICALS_JSON_URL, function (data) {
-  RADICAL_MAPPING = data;
-
-  initialiseRadicalSelection(true);
-
-  getJson(COLLOCATIONS_JSON_URL, function (data) {
-    COLLOCATIONS = data;
-
-    app.$mount('#app');
-  });
-});
