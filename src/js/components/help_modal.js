@@ -1,0 +1,98 @@
+Vue.component('help-modal', {
+  data: function () {
+    return {
+      tab: 'similar',
+      display: false,
+    };
+  },
+  template: `
+    <div>
+      <i class="help-icon" v-on:click="display = !display">?</i>
+
+      <div v-if="display" class="help-overlay" v-on:click="display = !display">
+        <div class="help-modal">
+          <div class="help-tabs">
+            <label for="help_tab_similar">
+              <input id="help_tab_similar" type="radio" name="help_tab" value="similar" v-model="tab">
+              似てる部首一覧
+            </label>
+            <label for="help_tab_variant">
+              <input id="help_tab_variant" type="radio" name="help_tab" value="variant" v-model="tab">
+              変形一覧
+            </label>
+          </div>
+
+          <div v-html="help_text"></div>
+
+          <table>
+            <thead>
+              <tr v-if="tab === 'similar'">
+                <td>入力</td>
+                <td>検索対象</td>
+              </tr>
+              <tr v-else-if="tab === 'variant'">
+                <td>入力</td>
+                <td>変形</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(input, search_radicals) in input_chart">
+                <td>{{ input }}</td>
+                <td>{{ search_radicals }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `,
+  computed: {
+    help_text: function () {
+      switch (this.tab) {
+        case 'similar':
+          return '入力の文字に似てる部首を検索出来ます。検索対象になった似た部首には&#x1F441;が付きます。';
+        case 'variant':
+          return '特定の文字の前に！を入力すると変形に変換されます。';
+        default:
+          return '';
+      }
+    },
+
+    input_chart: function () {
+      switch (this.tab) {
+        case 'similar':
+          return this.getSimilarInputChart();
+        case 'variant':
+          return this.getVariantInputChart();
+        default:
+          return [];
+      }
+    },
+  },
+
+  methods: {
+    getSimilarInputChart: function () {
+      const chart = {};
+      Object.keys(LOOKALIKES).forEach(function (input) {
+        const search_radicals = LOOKALIKES[input].map(function (radical) {
+          return RADK_DISPLAY[radical] || radical;
+        }).join(' ');
+
+        if (chart[search_radicals]) {
+          chart[search_radicals] += ' or ' + input;
+        } else {
+          chart[search_radicals] = input;
+        }
+      });
+      return chart;
+    },
+
+    getVariantInputChart: function () {
+      const chart = {};
+      Object.keys(ALTERNATE_FORMS).forEach(function (input) {
+        chart[ALTERNATE_FORMS[input]] = '！' + input;
+      });
+      return chart;
+    },
+  },
+});

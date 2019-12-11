@@ -48,6 +48,11 @@ const app = new Vue({
 
       <radical-selection v-bind:radical_selection="radical_selection"
                          v-on:select-radical="selectRadical"></radical-selection>
+
+      <div>
+        <a href="https://github.com/rewhowe/kanji">GitHub</a>
+        <help-modal>
+      </div>
     </div>
   `,
 
