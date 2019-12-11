@@ -49,9 +49,9 @@ const app = new Vue({
       <radical-selection v-bind:radical_selection="radical_selection"
                          v-on:select-radical="selectRadical"></radical-selection>
 
-      <div>
-        <a href="https://github.com/rewhowe/kanji">GitHub</a>
+      <div class="footer">
         <help-modal></help-modal>
+        <a class="footer-link" href="https://github.com/rewhowe/kanji">GitHub</a>
       </div>
     </div>
   `,
