@@ -2,8 +2,9 @@
   --main-bg-color: #ffffff;
   --main-border-color: #d4d7dd;
   --main-selected-bg-color: #305c91;
-  --main-padding: 15px;
+  --main-text-color: #3b3b3b;
 }
+
 .app {
   position: absolute;
   left: 50%;
@@ -44,7 +45,7 @@
   padding: 0 22px;
   font-size: 20px;
   font-weight: 300;
-  color: #3b3b3b;
+  color: var(--main-text-color);
   height: 60px;
   background-color: var(--main-border-color);
   cursor: pointer;
@@ -56,7 +57,7 @@
   left: 0;
   right: 0;
   border-top: 0;
-  background: #fff;
+  background: var(--main-bg-color);
   transition: all 0.5s;
   opacity: 0;
   visibility: hidden;
@@ -74,7 +75,7 @@
   padding: 0 22px 0 22px;
   font-size: 22px;
   font-weight: 300;
-  color: #3b3b3b;
+  color: var(--main-text-color);
   line-height: 60px;
   cursor: pointer;
   transition: all 0.5s;
@@ -119,16 +120,14 @@
   padding: 0 22px;
   font-size: 20px;
   font-weight: 300;
-  color: #3b3b3b;
+  color: var(--main-text-color);
   height: 60px;
   line-height: 60px;
-  background: #ffffff;
   cursor: pointer;
 }
 .search_includeSimilarLabel.selected {
   color: #ffffff;
   background: var(--main-selected-bg-color);
-  border-color: #ffffff;
 }
 
 .candidate-list-container {
