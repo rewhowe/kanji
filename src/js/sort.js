@@ -13,6 +13,12 @@ const SORT_OPTIONS = {
   freq_cn: '中国語での使用頻度',
 };
 
+const SORT_OPTIONS_SHORT = {
+  stroke: '画',
+  freq_ja: '日',
+  freq_cn: '中',
+};
+
 function sortBy(candidates, order, callback) {
   let order_json_url;
 

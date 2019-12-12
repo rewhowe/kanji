@@ -14,35 +14,40 @@ const app = new Vue({
     input: '',
 
     include_similar: false,
-    sort_options: SORT_OPTIONS,
+    sort_options: SORT_OPTIONS_SHORT,
     sort: 'stroke',
 
     candidates: [],
     radical_selection: undefined,
 
     searching: false,
+
+    isDropdownOpen: false,
+    isIncludeSimilar: false,
   },
   template: `
     <div class="app">
-      <div>
-        <input type="text" v-model="input" v-on:change="lookup">
+      <div class="search">
+          <div class="search_sort" v-on:click="openDropdown" v-bind:class="{ open: isDropdownOpen}">
+            <div class="search_sortTrigger"><span>{{ sort_options[sort] }}</span>
+            </div>
+            <div class="search_sortOptions">
+              <sort-option v-for="(label, order) in sort_options"
+                                v-bind:key="order"
+                                v-bind:order="order"
+                                v-bind:label="label"
+                                v-bind:sort="sort"
+                                v-bind:class="{ selected: sort == order }"
+                                v-on:click="selectSort"></sort-option>
+            </div>
+          </div>
+          <input type="text" v-model="input" v-on:change="lookup" class="search_input">
+          <div class="search_includeSimilar">
+            <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="includeSimilar"　class="search_checkBox">
+            <label class="search_includeSimilarLabel" for="include_similar" v-bind:class="{ selected: isIncludeSimilar }"><i class="far fa-eye"></i></label>
+          </div>
+          
       </div>
-
-      <ul>
-        <li>
-          <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="lookup">
-          <label for="include_similar">似てる部首も含む&#x1F441;</label>
-        </li>
-        <li>
-          並び替え
-          <sort-option v-for="(label, order) in sort_options"
-                       v-bind:key="order"
-                       v-bind:order="order"
-                       v-bind:label="label"
-                       v-bind:sort="sort"
-                       v-on:sort-candidates="sortCandidates"></sort-option>
-        </li>
-      </ul>
 
       <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
 
@@ -67,6 +72,20 @@ const app = new Vue({
 
         self.searching = false;
       }, 1);
+    },
+
+    openDropdown: function () {
+      app.isDropdownOpen = !app.isDropdownOpen;
+    },
+
+    selectSort: function (order) {
+      app.isDropdownOpen = !app.isDropdownOpen;
+      this.sortCandidates(order);
+    },
+
+    includeSimilar: function() {
+      app.isIncludeSimilar = !app.isIncludeSimilar;
+      this.lookup();
     },
 
     selectRadical: function (radical) {
