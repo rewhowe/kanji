@@ -14,7 +14,7 @@ const app = new Vue({
     input: '',
 
     include_similar: false,
-    sort_options: SORT_OPTIONS_SHORT,
+    sort_options: SORT_OPTIONS,
     sort: 'stroke',
 
     candidates: [],
