@@ -1,5 +1,4 @@
 // TODO:
-// * help charts for lookalikes and alternate forms
 // * compile js / css
 
 const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/radicals.json';
@@ -48,6 +47,8 @@ const app = new Vue({
 
       <radical-selection v-bind:radical_selection="radical_selection"
                          v-on:select-radical="selectRadical"></radical-selection>
+
+      <about-section></about-section>
     </div>
   `,
 
