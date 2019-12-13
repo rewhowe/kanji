@@ -28,17 +28,16 @@ const app = new Vue({
   template: `
     <div class="app">
       <div class="search">
-          <div class="search_sort" v-on:click="openDropdown" v-bind:class="{ open: isDropdownOpen}">
-            <div class="search_sortTrigger"><span>{{ sort_options[sort] }}</span>
-            </div>
+          <div class="search_sort" v-on:click="toggleDropdown" v-bind:class="{ open: isDropdownOpen}">
+            <div class="search_sortTrigger"><span>{{ sort_options[sort] }}</span></div>
             <div class="search_sortOptions">
               <sort-option v-for="(label, order) in sort_options"
-                                v-bind:key="order"
-                                v-bind:order="order"
-                                v-bind:label="label"
-                                v-bind:sort="sort"
-                                v-bind:class="{ selected: sort == order }"
-                                v-on:click="selectSort"></sort-option>
+                           v-bind:key="order"
+                           v-bind:order="order"
+                           v-bind:label="label"
+                           v-bind:sort="sort"
+                           v-bind:class="{ selected: sort == order }"
+                           v-on:click="selectSort"></sort-option>
             </div>
           </div>
           <input type="text" v-model="input" v-on:change="lookup" class="search_input">
@@ -74,17 +73,17 @@ const app = new Vue({
       }, 1);
     },
 
-    openDropdown: function () {
-      app.isDropdownOpen = !app.isDropdownOpen;
+    toggleDropdown: function () {
+      this.isDropdownOpen = !this.isDropdownOpen;
     },
 
     selectSort: function (order) {
-      app.isDropdownOpen = !app.isDropdownOpen;
+      this.isDropdownOpen = !this.isDropdownOpen;
       this.sortCandidates(order);
     },
 
     includeSimilar: function() {
-      app.isIncludeSimilar = !app.isIncludeSimilar;
+      this.isIncludeSimilar = !this.isIncludeSimilar;
       this.lookup();
     },
 
