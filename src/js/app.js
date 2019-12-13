@@ -22,14 +22,13 @@ const app = new Vue({
 
     searching: false,
 
-    isDropdownOpen: false,
-    isIncludeSimilar: false,
+    is_dropdown_open: false,
   },
   template: `
     <div class="app">
       <div class="search">
-          <div class="search_sort" v-on:click="toggleDropdown" v-bind:class="{ open: isDropdownOpen}">
-            <div class="search_sortTrigger"><span>{{ sort_options[sort] }}</span></div>
+          <div class="search_sort" v-bind:class="{ open: is_dropdown_open }">
+            <div class="search_sortTrigger" v-on:click="toggleDropdown"><span>{{ sort_options[sort] }}</span></div>
             <div class="search_sortOptions">
               <sort-option v-for="(label, order) in sort_options"
                            v-bind:key="order"
@@ -43,7 +42,7 @@ const app = new Vue({
           <input type="text" v-model="input" v-on:change="lookup" class="search_input">
           <div class="search_includeSimilar">
             <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="includeSimilar"　class="search_checkBox">
-            <label class="search_includeSimilarLabel" for="include_similar" v-bind:class="{ selected: isIncludeSimilar }"><i class="far fa-eye"></i></label>
+            <label class="search_includeSimilarLabel" for="include_similar" v-bind:class="{ selected: include_similar }"><i class="far fa-eye"></i></label>
           </div>
           
       </div>
@@ -74,11 +73,11 @@ const app = new Vue({
     },
 
     toggleDropdown: function () {
-      this.isDropdownOpen = !this.isDropdownOpen;
+      this.is_dropdown_open = !this.is_dropdown_open;
     },
 
     selectSort: function (order) {
-      this.isDropdownOpen = !this.isDropdownOpen;
+      this.is_dropdown_open = false;
       this.sortCandidates(order);
     },
 
