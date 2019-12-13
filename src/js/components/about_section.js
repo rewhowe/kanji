@@ -1,10 +1,4 @@
 Vue.component('about-section', {
-  data: function () {
-    return {
-      tab: 'similar',
-      display: false,
-    };
-  },
   template: `
     <div class="about">
       <h2 class="about-title">このアプリについて</h2>
