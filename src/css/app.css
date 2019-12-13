@@ -1,5 +1,15 @@
+:root {
+  --main-bg-color: #ffffff;
+  --main-border-color: #d4d7dd;
+  --main-selected-bg-color: #305c91;
+  --main-text-color: #3b3b3b;
+}
+
 .app {
-  padding: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 10rem;
 }
 
 .splash {
@@ -15,11 +25,117 @@
   background: #ffffff;
 }
 
+.search {
+  height: 60px;
+  width: 100%;
+  display: inline-flex;
+  border: 1px solid var(--main-border-color);
+}
+.search_sort {
+  position: relative;
+  user-select: none;
+  width: 18rem;
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 60px;
+}
+.search_sortTrigger {
+  position: relative;
+  display: grid;
+  height: 100%;
+  align-items: center;
+  padding: 0 22px;
+  color: var(--main-text-color);
+  background-color: var(--main-border-color);
+  cursor: pointer;
+}
+.search_sortOptions {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border-top: 0;
+  background: var(--main-bg-color);
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+.search_sort.open .search_sortOptions {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+.search_sortOption {
+  position: relative;
+  display: block;
+  padding: 0 22px 0 22px;
+  color: var(--main-text-color);
+  line-height: 60px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.search_sortOption:hover {
+  cursor: pointer;
+  background-color: #b2b2b2;
+}
+.search_sortOption.selected {
+  color: #ffffff;
+  background-color: var(--main-selected-bg-color);
+}
+.search_sortOptionInput {
+  display: none;
+}
+.search_input {
+  font-size: 20px;
+  font-weight: 300;
+  width: 100%;
+  padding: 10px;
+  border: 0px;
+}
+.search_input:focus {
+  outline: 0px;
+}
+.search_checkBox {
+  line-height: 60px;
+  display: none;
+}
+.search_includeSimilar {
+  position: relative;
+  user-select: none;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.search_includeSimilarLabel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--main-text-color);
+  height: 60px;
+  line-height: 60px;
+  cursor: pointer;
+}
+.search_includeSimilarLabel.selected {
+  color: #ffffff;
+  background: var(--main-selected-bg-color);
+}
+
 .candidate-list-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid;
+  border-width: 0 1px 1px 1px;
+  border-color: var(--main-border-color);
   position: relative;
 }
 
