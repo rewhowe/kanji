@@ -150,7 +150,7 @@
 
 .candidate-list {
   width: 100%;
-  max-height: 12rem;
+  height: 12rem;
   overflow: scroll;
   padding: 0.4rem;
   line-height: 2rem;
