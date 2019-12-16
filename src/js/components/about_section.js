@@ -1,13 +1,11 @@
 Vue.component('about-section', {
   template: `
-    <div class="about">
+    <section class="about">
       <h2 class="about-title">このアプリについて</h2>
 
       <div class="help-sections">
         <div class="help-section">
-          <div class="help-text">
-            &#x1F441;を押すと、入力の文字に似てる部首を検索出来ます。検索対象になった似た部首には&#x1F441;が付きます。
-          </div>
+          <p class="help-text"><i class="far fa-eye"></i>を押すと、入力の文字に似てる部首を検索出来ます。検索対象になった似た部首には&#x1F441;が付きます。</p>
           <table class="help-input-chart">
             <thead>
               <tr>
@@ -25,9 +23,9 @@ Vue.component('about-section', {
         </div>
 
         <div class="help-section">
-          <div class="help-text">
+          <p class="help-text">
             特定の文字の前に！を入力すると変形に変換されます。
-          </div>
+          </p>
           <table class="help-input-chart">
             <thead>
               <tr>
@@ -44,12 +42,7 @@ Vue.component('about-section', {
           </table>
         </div>
       </div>
-
-      <ul class="about-links">
-        <li><a class="about-link" href="https://github.com/rewhowe/kanji">GitHub</a></li>
-        <!-- TODO personal contributor links -->
-      </ul>
-    </div>
+    </section>
   `,
   computed: {
     similar_input_chart: function () {
