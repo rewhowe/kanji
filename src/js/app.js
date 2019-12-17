@@ -25,10 +25,10 @@ const app = new Vue({
   },
   template: `
     <div class="app">
-    <section class="search">
-      <div class="search_bar">
+      <section class="search">
+        <div class="search_bar">
           <div class="search_sort" v-bind:class="{ open: is_dropdown_open }">
-            <div class="search_sortTrigger" v-on:click="toggleDropdown"><span><span class="search_sortIcon">&#x21f5</span>{{ sort_options[sort] }}</span></div>
+            <div class="search_sortTrigger" v-on:click="toggleDropdown"><span class="search_sortLabel"><span class="search_sortIcon">&#x21f5</span>{{ sort_options[sort] }}</span></div>
             <div class="search_sortOptions">
               <sort-option v-for="(label, order) in sort_options"
                            v-bind:key="order"
@@ -44,20 +44,19 @@ const app = new Vue({
             <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="includeSimilar"　class="search_checkBox">
             <label class="search_includeSimilarLabel" for="include_similar" v-bind:class="{ selected: include_similar }"><i class="far fa-eye"></i></label>
           </div>
-          
-      </div>
+        </div>
 
-      <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
+        <candidate-list v-bind:candidates="candidates" v-bind:searching="searching"></candidate-list>
 
-      <radical-selection v-bind:radical_selection="radical_selection"
-                         v-on:select-radical="selectRadical"></radical-selection>
-    </section>
+        <radical-selection v-bind:radical_selection="radical_selection"
+                           v-on:select-radical="selectRadical"></radical-selection>
+      </section>
 
-    <about-section></about-section>
+      <about-section></about-section>
 
-    <footer class="footer">
-      <a class="about-link" href="https://github.com/rewhowe/kanji">GitHub</a>
-    </footer>
+      <footer class="footer">
+        <a class="about-link" href="https://github.com/rewhowe/kanji">GitHub</a>
+      </footer>
     </div>
   `,
 

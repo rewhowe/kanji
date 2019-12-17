@@ -18,6 +18,16 @@
   color: var(--main-text-color);
   background-color: var(--main-border-color);
   cursor: pointer;
+  white-space: nowrap;
+}
+@media screen and (max-width: 1024px) {
+  .search_sortTrigger {
+    width: 8ch;
+  }
+
+  .search_sortLabel {
+    overflow: hidden;
+  }
 }
 .search_sortIcon {
   font-size: 24px;
