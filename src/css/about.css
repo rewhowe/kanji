@@ -50,14 +50,6 @@
   min-width: 300px;
 }
 
-.help-input-chart thead td {
-  text-align: center;
-  opacity: 0.8;
-  background-color: var(--main-selected-bg-color);
-  color: #ffffff;
-  padding: 10px 0;
-}
-
 .help-input-chart td {
   padding: 10px;
 }
@@ -67,4 +59,12 @@
 }
 .help-input-chart tbody tr:nth-child(even) {
   background-color: #ffffff;
+}
+
+.help-input-chart_header {
+  text-align: center;
+  opacity: 0.8;
+  background-color: var(--main-selected-bg-color);
+  color: #ffffff;
+  padding: 10px 0;
 }

@@ -9,8 +9,8 @@ Vue.component('about-section', {
           <table class="help-input-chart">
             <thead>
               <tr>
-                <td>入力</td>
-                <td>検索対象</td>
+                <th class="help-input-chart_header">入力</th>
+                <th class="help-input-chart_header">検索対象</th>
               </tr>
             </thead>
             <tbody>
@@ -23,14 +23,12 @@ Vue.component('about-section', {
         </div>
 
         <div class="help-section">
-          <p class="help-text">
-            特定の文字の前に！を入力すると変形に変換されます。
-          </p>
+          <p class="help-text">特定の文字の前に！を入力すると変形に変換されます。</p>
           <table class="help-input-chart">
             <thead>
               <tr>
-                <td>入力</td>
-                <td>変形</td>
+                <th class="help-input-chart_header">入力</th>
+                <th class="help-input-chart_header">変形</th>
               </tr>
             </thead>
             <tbody>
