@@ -189,6 +189,10 @@
   position: relative;
 }
 
+.radical i {
+  display: none;
+}
+
 .radical:hover:not(.unavailable) {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.1);
@@ -211,13 +215,14 @@
   border: 1px solid;
 }
 
-.radical.lookalike-selected:after {
-  content: '\1F441';
+.radical.lookalike-selected i {
+  display: inline;
   position: absolute;
   left: 0;
-  top: -0.5rem;
+  top: -2px;
   opacity: 0.5;
-  font-size: 14;
+  font-size: 16px;
+  color: var(--main-selected-bg-color);
 }
 
 .loading {
