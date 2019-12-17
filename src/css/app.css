@@ -5,11 +5,12 @@
   --main-text-color: #3b3b3b;
 }
 
-.app {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  padding-top: 10rem;
+.footer {
+  text-align: center;
+  background-color: var(--main-selected-bg-color);
+  color: #ffffff;
+  opacity: 0.8;
+  padding: 40px 0 20px;
 }
 
 .splash {
@@ -26,6 +27,16 @@
 }
 
 .search {
+  margin: auto;
+  width: 50%;
+  padding: 10rem 0 5rem;
+}
+@media screen and (max-width: 600px) {
+  .search {
+    width: 80%;
+  }
+}
+.search_bar {
   height: 60px;
   width: 100%;
   display: inline-flex;
@@ -51,6 +62,10 @@
   color: var(--main-text-color);
   background-color: var(--main-border-color);
   cursor: pointer;
+}
+.search_sortIcon {
+  font-size: 24px;
+  padding: 0 5px;
 }
 .search_sortOptions {
   position: absolute;

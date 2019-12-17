@@ -4,7 +4,7 @@ Vue.component('candidate-list', {
     candidates: Array,
   },
   template: `
-    <div class="candidate-list-container">
+    <section class="candidate-list-container">
       <i v-if="searching" v-model="searching" class="loading"></i>
       <div class="candidate-list">
         <span v-if="!searching"
@@ -13,6 +13,6 @@ Vue.component('candidate-list', {
               class="candidate">{{ candidate }}</span>
       </div>
       <div class="more"></div>
-    </div>
+    </section>
   `,
 });

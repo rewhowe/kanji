@@ -25,9 +25,10 @@ const app = new Vue({
   },
   template: `
     <div class="app">
-      <div class="search">
+    <section class="search">
+      <div class="search_bar">
           <div class="search_sort" v-bind:class="{ open: is_dropdown_open }">
-            <div class="search_sortTrigger" v-on:click="toggleDropdown"><span>{{ sort_options[sort] }}</span></div>
+            <div class="search_sortTrigger" v-on:click="toggleDropdown"><span><span class="search_sortIcon">&#x21f5</span>{{ sort_options[sort] }}</span></div>
             <div class="search_sortOptions">
               <sort-option v-for="(label, order) in sort_options"
                            v-bind:key="order"
@@ -50,8 +51,13 @@ const app = new Vue({
 
       <radical-selection v-bind:radical_selection="radical_selection"
                          v-on:select-radical="selectRadical"></radical-selection>
+    </section>
 
-      <about-section></about-section>
+    <about-section></about-section>
+
+    <footer class="footer">
+      <a class="about-link" href="https://github.com/rewhowe/kanji">GitHub</a>
+    </footer>
     </div>
   `,
 
