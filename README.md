@@ -77,6 +77,8 @@ Example: `!水!火` → `⺡⺣` → `漁`
 
 ## Notice
 
+This project is provided for purely educational purposes.
+
 This project uses information from "radkfile", "radkfile2", "kradfile", and "kradfile2" and the licenses therein are reproduced below, without modification:
 
 ```
@@ -121,9 +123,11 @@ This project uses information from "radkfile", "radkfile2", "kradfile", and "kra
 #   All other rights reserved.
 ```
 
-## Data Sources
+[RADKFILE/KRADFILE source](http://www.edrdg.org/krad/kradinf.html)
 
-* [RADKFILE/KRADFILE source](http://www.edrdg.org/krad/kradinf.html)
+## Additional Data Sources
+
+The following sources were used to acquire supplemental data used by this project:
 
 * [List of kanji by stroke count](https://github.com/idreyn/quantifying-simplified-chinese/blob/master/data/strokes.csv) ([raw](https://raw.githubusercontent.com/idreyn/quantifying-simplified-chinese/master/data/strokes.csv))
 
