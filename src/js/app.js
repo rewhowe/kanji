@@ -1,6 +1,3 @@
-// TODO:
-// * compile js / css
-
 const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/radicals.json';
 let RADICAL_MAPPING = [];
 
