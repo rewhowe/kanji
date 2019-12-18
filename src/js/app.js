@@ -95,16 +95,17 @@ const app = new Vue({
 
     selectRadical: function (radical) {
       const self = this;
+
+      const radical_data          = RADICAL_MAPPING[radical];
+      const is_currently_selected = self.radical_selection[radical_data.strokes][radical].selected;
+      const is_available          = self.radical_selection[radical_data.strokes][radical].available;
+
+      if (!is_available && !is_currently_selected) return;
+
       self.searching = true;
 
       // Delay so that loading spinner can render
       window.setTimeout(function () {
-        const radical_data          = RADICAL_MAPPING[radical];
-        const is_currently_selected = self.radical_selection[radical_data.strokes][radical].selected;
-        const is_available          = self.radical_selection[radical_data.strokes][radical].available;
-
-        if (!is_available && !is_currently_selected) return;
-
         const display_radical = RADK_DISPLAY[radical] || radical;
         self.input = self.input.replace(new RegExp(display_radical, 'g'), '');
         if (!is_currently_selected) {
