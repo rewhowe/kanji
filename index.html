@@ -4,13 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/lib/reset.css"/>
-
-    <!-- TODO: minify -->
-    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/css/app.css"/>
-    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/css/sort_option.css"/>
-    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/css/radical_selection.css"/>
-    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./src/css/about.css"/>
-    <!-- <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/kanji.min.css"/> -->
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./public/css/app.min.css"/>
   </head>
   <body>
     <div id="app">
@@ -22,16 +16,6 @@
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-    <!-- TODO: concatenate & minify -->
-    <script async src="./src/js/helpers.js"></script>
-    <script async src="./src/js/compat.js"></script>
-    <script async src="./src/js/sort.js"></script>
-    <script async src="./src/js/components/sort_option.js"></script>
-    <script async src="./src/js/components/candidate_list.js"></script>
-    <script async src="./src/js/components/radical_selection.js"></script>
-    <script async src="./src/js/components/about_section.js"></script>
-    <script async src="./src/js/app.js"></script>
-    <!-- <script async type="text/javascript" src="./public/js/kanji.min.js"></script> -->
+    <script async type="text/javascript" src="./public/js/app.min.js"></script>
   </body>
 </html>
