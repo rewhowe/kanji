@@ -29,7 +29,7 @@
 .search {
   margin: auto;
   width: 50%;
-  padding: 10rem 0 5rem;
+  padding: 5rem 0 5rem;
 }
 @media screen and (max-width: 600px) {
   .search {
@@ -41,22 +41,22 @@
   width: 100%;
   display: inline-flex;
   border: 1px solid var(--main-border-color);
+  margin-bottom: 10px;
 }
 
 .candidate-list-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-width: 0 1px 1px 1px;
-  border-color: var(--main-border-color);
   position: relative;
+  margin-bottom: 10px;
 }
 
 .candidate-list-container .more {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
   height: 3rem;
   background: linear-gradient(180deg, transparent, #ffffff);
 }
@@ -69,6 +69,7 @@
   line-height: 2rem;
   font-size: 1.5rem;
   padding-bottom: 2rem;
+  border: 1px solid var(--main-border-color);
 }
 
 .candidate-list::-webkit-scrollbar {

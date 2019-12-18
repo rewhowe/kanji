@@ -78,8 +78,9 @@ const app = new Vue({
       }, 1);
     },
 
-    toggleDropdown: function () {
+    toggleDropdown: function (e) {
       this.is_dropdown_open = !this.is_dropdown_open;
+      e.stopPropagation();
     },
 
     selectSort: function (order) {
@@ -282,6 +283,10 @@ const app = new Vue({
   },
 
   mounted: function () {
-    this.initialiseRadicalSelection(true);
+    const self = this;
+    self.initialiseRadicalSelection(true);
+    document.addEventListener('click', function () {
+      self.is_dropdown_open = false;
+    });
   },
 });
