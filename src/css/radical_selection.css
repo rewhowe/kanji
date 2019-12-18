@@ -36,8 +36,6 @@
   display: inline;
   position: absolute;
   left: 0;
-  top: -2px;
+  top: -0.5rem;
   opacity: 0.5;
-  font-size: 16px;
-  color: var(--main-selected-bg-color);
 }

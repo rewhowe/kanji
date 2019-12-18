@@ -16,7 +16,7 @@ Vue.component('radical-selection', {
                     selected:             data.selected,
                     'lookalike-selected': data.lookalike_selected,
                     unavailable:          !data.available,
-                  }"><i class="far fa-eye"></i>{{ data.display }}</span>
+                  }"><i class="eye"></i>{{ data.display }}</span>
           </td>
         </tr>
       </tbody>

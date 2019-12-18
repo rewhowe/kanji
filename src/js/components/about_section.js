@@ -5,7 +5,7 @@ Vue.component('about-section', {
 
       <div class="help-sections">
         <div class="help-section">
-          <p class="help-text"><i class="far fa-eye"></i>のボタンを押すと、入力の文字に似てる部首を検索出来ます。検索対象になった似た部首には<i class="far fa-eye"></i>のアイコンが付きます。</p>
+          <p class="help-text"><i class="eye"></i>のボタンを押すと、入力の文字に似てる部首を検索出来ます。検索対象になった似た部首には<i class="eye"></i>のアイコンが付きます。</p>
           <table class="help-input-chart">
             <thead>
               <tr>

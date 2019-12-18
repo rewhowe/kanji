@@ -111,3 +111,9 @@
 @-moz-keyframes spin { 100% { -moz-transform: rotate(720deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(720deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(720deg); transform:rotate(720deg); } }
+
+i.eye::before {
+  content: '\1F441';
+  text-shadow: 0 0 0 #000000;
+  filter: saturate(5) contrast(100) grayscale(1);
+}
