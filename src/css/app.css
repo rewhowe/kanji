@@ -29,7 +29,7 @@
 .search {
   margin: auto;
   width: 50%;
-  padding: 10rem 0 5rem;
+  padding: 5rem 0 5rem;
 }
 @media screen and (max-width: 600px) {
   .search {

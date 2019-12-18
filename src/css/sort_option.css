@@ -76,7 +76,6 @@
   border-top: 1px solid var(--main-border-color);
 }
 .search_sortOption:hover {
-  cursor: pointer;
   background-color: #b2b2b2;
 }
 .search_sortOption.selected {
@@ -85,6 +84,9 @@
 }
 .search_sortOptionInput {
   display: none;
+}
+.search_sortOptionLabel {
+  cursor: pointer;
 }
 .search_input {
   font-size: 20px;

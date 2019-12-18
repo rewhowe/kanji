@@ -12,7 +12,7 @@ Vue.component('sort-option', {
              v-bind:id="id"
              v-bind:value="order"
              v-model="sort">
-      <label v-bind:for="id">{{ label }}</label>
+      <label class="search_sortOptionLabel" v-bind:for="id">{{ label }}</label>
     </div>
   `,
   computed: {
