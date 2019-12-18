@@ -1,0 +1,43 @@
+.radical {
+  padding: 0.3rem;
+  border: 1px solid #000000;
+  margin: 0.1rem;
+  line-height: 2rem;
+  position: relative;
+}
+
+.radical i {
+  display: none;
+}
+
+.radical:hover:not(.unavailable) {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.radical:active:hover:not(.unavailable) {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+}
+
+.radical.selected {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+.radical.unavailable:not(.selected) {
+  color: rgba(0, 0, 0, 0.1);
+  border: 1px solid;
+}
+
+.radical.lookalike-selected i {
+  display: inline;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  opacity: 0.5;
+  font-size: 16px;
+  color: var(--main-selected-bg-color);
+}
