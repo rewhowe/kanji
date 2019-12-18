@@ -5,15 +5,15 @@ Vue.component('sort-option', {
     label: String,
   },
   template: `
-  <div class="search_sortOption" v-on:click="$emit('click', order)">
-    <input class="search_sortOptionInput"
-           type="radio"
-           name="sort"
-           v-bind:id="id"
-           v-bind:value="order"
-           v-model="sort">
-    <label v-bind:for="id">{{ label }}</label>
-  </div>
+    <div class="search_sortOption" v-on:click="$emit('click', order)">
+      <input class="search_sortOptionInput"
+             type="radio"
+             name="sort"
+             v-bind:id="id"
+             v-bind:value="order"
+             v-model="sort">
+      <label v-bind:for="id">{{ label }}</label>
+    </div>
   `,
   computed: {
     id: function () {
