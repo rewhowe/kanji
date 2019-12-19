@@ -1,6 +1,3 @@
-// TODO:
-// * compile js / css
-
 const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/radicals.json';
 let RADICAL_MAPPING = [];
 
@@ -95,16 +92,17 @@ const app = new Vue({
 
     selectRadical: function (radical) {
       const self = this;
+
+      const radical_data          = RADICAL_MAPPING[radical];
+      const is_currently_selected = self.radical_selection[radical_data.strokes][radical].selected;
+      const is_available          = self.radical_selection[radical_data.strokes][radical].available;
+
+      if (!is_available && !is_currently_selected) return;
+
       self.searching = true;
 
       // Delay so that loading spinner can render
       window.setTimeout(function () {
-        const radical_data          = RADICAL_MAPPING[radical];
-        const is_currently_selected = self.radical_selection[radical_data.strokes][radical].selected;
-        const is_available          = self.radical_selection[radical_data.strokes][radical].available;
-
-        if (!is_available && !is_currently_selected) return;
-
         const display_radical = RADK_DISPLAY[radical] || radical;
         self.input = self.input.replace(new RegExp(display_radical, 'g'), '');
         if (!is_currently_selected) {
@@ -274,8 +272,10 @@ const app = new Vue({
   },
 
   beforeMount: function () {
+    const self = this;
     getJson(RADICALS_JSON_URL, function (data) {
       RADICAL_MAPPING = data;
+      self.initialiseRadicalSelection(true);
     });
     getJson(COLLOCATIONS_JSON_URL, function (data) {
       COLLOCATIONS = data;
@@ -284,7 +284,6 @@ const app = new Vue({
 
   mounted: function () {
     const self = this;
-    self.initialiseRadicalSelection(true);
     document.addEventListener('click', function () {
       self.is_dropdown_open = false;
     });
