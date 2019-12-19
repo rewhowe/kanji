@@ -1,6 +1,3 @@
-// TODO:
-// * compile js / css
-
 const RADICALS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/radicals.json';
 let RADICAL_MAPPING = [];
 
@@ -275,8 +272,10 @@ const app = new Vue({
   },
 
   beforeMount: function () {
+    const self = this;
     getJson(RADICALS_JSON_URL, function (data) {
       RADICAL_MAPPING = data;
+      self.initialiseRadicalSelection(true);
     });
     getJson(COLLOCATIONS_JSON_URL, function (data) {
       COLLOCATIONS = data;
@@ -285,7 +284,6 @@ const app = new Vue({
 
   mounted: function () {
     const self = this;
-    self.initialiseRadicalSelection(true);
     document.addEventListener('click', function () {
       self.is_dropdown_open = false;
     });
