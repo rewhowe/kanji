@@ -29,7 +29,7 @@ const CSS_OUTPUT_FILE = 'app';
 gulp.task('css', function () {
   return gulp.src([
       CSS_SRC_DIR + 'app.css',
-      CSS_SRC_DIR + 'sort_option.css',
+      CSS_SRC_DIR + 'search.css',
       CSS_SRC_DIR + 'radical_selection.css',
       CSS_SRC_DIR + 'about.css',
   ])

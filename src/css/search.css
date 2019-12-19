@@ -1,3 +1,20 @@
+.search {
+  margin: auto;
+  width: 50%;
+  padding: 5rem 0 5rem;
+}
+@media screen and (max-width: 600px) {
+  .search {
+    width: 80%;
+  }
+}
+.search_bar {
+  height: 60px;
+  width: 100%;
+  display: inline-flex;
+  border: 1px solid var(--main-border-color);
+  margin-bottom: 10px;
+}
 .search_sort {
   position: relative;
   user-select: none;
@@ -109,8 +126,6 @@
 .search_includeSimilarLabel {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0 22px;
   font-size: 20px;
   font-weight: 300;
