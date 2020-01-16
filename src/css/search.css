@@ -48,6 +48,9 @@
   padding-left: 12px;
 }
 @media screen and (max-width: 1024px) {
+  .search_sort {
+    width: initial;
+  }
   .search_sortTrigger {
     width: 6ch;
   }
