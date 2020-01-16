@@ -54,6 +54,9 @@
   .search_sortTrigger {
     width: 6ch;
   }
+  .search_sortTrigger::before {
+    font-size: initial;
+  }
   .search_sortOptions {
     width: max-content;
   }
