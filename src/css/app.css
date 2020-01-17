@@ -52,14 +52,11 @@
   font-size: 1.5rem;
   padding-bottom: 2rem;
   border: 1px solid var(--main-border-color);
+  word-break: break-word;
 }
 
 .candidate-list::-webkit-scrollbar {
   display: none;
-}
-
-.candidate-list .candidate {
-  margin: 0.2rem;
 }
 
 .loading {

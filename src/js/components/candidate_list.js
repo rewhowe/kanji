@@ -10,7 +10,7 @@ Vue.component('candidate-list', {
         <span v-if="!searching"
               v-for="candidate in candidates"
               v-bind:key="candidate"
-              class="candidate">{{ candidate }}</span>
+              class="candidate">{{ candidate }}&nbsp;</span>
       </div>
       <div class="more"></div>
     </section>
