@@ -4,6 +4,9 @@ let RADICAL_MAPPING = [];
 const COLLOCATIONS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/collocations.json';
 let COLLOCATIONS = [];
 
+const DECOMPOSITIONS_JSON_URL = 'https://rewhowe.github.io/kanji/public/json/decompositions.json';
+let DECOMPOSITIONS = undefined;
+
 const app = new Vue({
   el: '#app',
   data: {
@@ -38,7 +41,7 @@ const app = new Vue({
           </div>
           <input type="text" v-model="input" v-on:change="lookup" class="search_input">
           <div class="search_includeSimilar">
-            <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="includeSimilar"　class="search_checkBox">
+            <input id="include_similar" type="checkbox" v-model="include_similar" v-on:change="includeSimilar" class="search_checkBox">
             <label class="search_includeSimilarLabel" for="include_similar" v-bind:class="{ selected: include_similar }"><i class="eye"></i></label>
           </div>
         </div>
@@ -144,6 +147,8 @@ const app = new Vue({
     getRadicals: function () {
       const self = this;
       self.input = self.input.replace(/[!！][^!！]/g, s => ALTERNATE_FORMS[s[1]] || s[1]);
+      self.input = self.input.replace(/[?？][^?？]/g, s => DECOMPOSITIONS[s[1]] || s[1]);
+      self.input = unique(self.input);
 
       return [...self.input].map(function (radical) {
         return (self.include_similar && LOOKALIKES[radical]) || [RADK[radical] || radical];
@@ -279,6 +284,9 @@ const app = new Vue({
     });
     getJson(COLLOCATIONS_JSON_URL, function (data) {
       COLLOCATIONS = data;
+    });
+    getJson(DECOMPOSITIONS_JSON_URL, function (data) {
+      DECOMPOSITIONS = data;
     });
   },
 

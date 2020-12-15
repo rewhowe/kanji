@@ -17,3 +17,7 @@ function getJson(url, callback) {
 function intersect(a, b) {
   return a.filter(element => b.includes(element));
 }
+
+function unique(s) {
+  return String.prototype.concat(...new Set(s));
+}

@@ -38,6 +38,22 @@ Vue.component('about-section', {
               </tr>
             </tbody>
           </table>
+
+          <p class="help-text">漢字の前に？を入力すると、その漢字が部首に分解されます。</p>
+          <table class="help-input-chart">
+            <thead>
+              <tr>
+                <th class="help-input-chart_header">入力(例)</th>
+                <th class="help-input-chart_header">構成</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(decomposition, kanji) in decomposition_chart">
+                <td>？{{ kanji }}</td>
+                <td>{{ decomposition }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -61,6 +77,14 @@ Vue.component('about-section', {
 
     variant_input_chart: function () {
       return ALTERNATE_FORMS;
+    },
+
+    decomposition_chart: function () {
+      return {
+        思: '心田',
+        待: '寸土彳',
+        友: 'ノ一又',
+      };
     },
   },
 });
