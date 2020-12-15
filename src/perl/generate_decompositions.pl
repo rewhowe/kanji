@@ -44,9 +44,9 @@ sub outputJson {
     my @radicals = @{$kanjis{$kanji}};
 
     print $output sprintf(
-      '"%s":["%s"]',
+      '"%s":"%s"',
       $kanji,
-      join('","', @radicals)
+      join('', @radicals)
     );
 
     print $output ',' unless ($i + 1) == $numKanji;
