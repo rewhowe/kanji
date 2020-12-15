@@ -14,6 +14,12 @@ use warnings;
 
 use List::MoreUtils qw(uniq);
 
+use lib do {
+  (my $dirname = $0) =~ s/\/[^\/]+$/\//;
+  $dirname;
+};
+use Kradfile;
+
 use constant KRADFILES => ('kradfile', 'kradfile2');
 
 die "Usage: $0 directory/of/kradfiles/ directory/of/output/\n" unless @ARGV == 2;
@@ -24,28 +30,18 @@ my $outputFilename = "$ARGV[1]/collocations.json";
 open(my $output, '>:encoding(utf-8)', $outputFilename) or die "Could not open $outputFilename\n";
 
 sub main {
-  my $collocationsRef = parseSourceFiles();
+  my $collocationsRef = makeCollocations();
 
   outputJson($collocationsRef);
 };
 
-sub parseSourceFiles {
+sub makeCollocations {
   my %collocations = ();
 
-  foreach my $filename (KRADFILES) {
-    open(my $kradfile, '<:encoding(euc-jp)', $kradDirectory . $filename) or die "Could not open $kradDirectory$filename\n";
+  my $kradfile = Kradfile->new(directory => $kradDirectory);
 
-    while (my $line = <$kradfile>) {
-      next if $line =~ /^#/; # skip comments
-
-      my @matches = ($line =~ /^. : (.+)$/);
-
-      die "Error while parsing $line\n" if !@matches || @matches != 1;
-
-      processRadicals(\%collocations, split(' ', $matches[0]));
-    }
-
-    close($kradfile);
+  foreach my $radicalsRef (values %{$kradfile->{kanji}}) {
+    processRadicals(\%collocations, @{$radicalsRef});
   }
 
   return \%collocations;
@@ -60,14 +56,14 @@ sub processRadicals {
 
       @{$collocationsRef->{$radical1}} = () unless exists $collocationsRef->{$radical1};
 
-      push(@{$collocationsRef->{$radical1}}, $radical2);
+      push @{$collocationsRef->{$radical1}}, $radical2;
 
-      my $pair = join('', sort($radical1, $radical2));
+      my $pair = join '', sort($radical1, $radical2);
       @{$collocationsRef->{$pair}} = () unless exists $collocationsRef->{$pair};
 
       foreach my $radical3 (@radicals) {
         next if $radical3 eq $radical1 || $radical3 eq $radical2;
-        push(@{$collocationsRef->{$pair}}, $radical3);
+        push @{$collocationsRef->{$pair}}, $radical3;
       }
     }
   }
@@ -87,7 +83,7 @@ sub outputJson {
     print $output sprintf(
       '"%s":["%s"]',
       $radical,
-      join('","', @otherRadicals)
+      join '","', @otherRadicals
     );
     print $output ',' unless ($i + 1) == $numRadicals;
     $i++;
@@ -98,4 +94,4 @@ sub outputJson {
 
 main();
 
-close($output);
+close $output;

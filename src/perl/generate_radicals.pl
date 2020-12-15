@@ -49,7 +49,7 @@ sub parseSourceFiles {
       processLine(\%radicalData, $line);
     }
 
-    close($radkfile);
+    close $radkfile;
   }
 
   return %radicalData;
@@ -70,8 +70,8 @@ sub processLine {
       $radicalDataRef->{$currentRadical} = makeRadicalData(@matches);
     }
   } elsif (defined $currentRadical) {
-    chomp($line);
-    push(@{$radicalDataRef->{$currentRadical}->{relatedKanji}}, split('', $line));
+    chomp $line;
+    push @{$radicalDataRef->{$currentRadical}->{relatedKanji}}, split('', $line);
   }
 }
 
@@ -114,4 +114,4 @@ sub outputJson {
 
 main();
 
-close($output);
+close $output;

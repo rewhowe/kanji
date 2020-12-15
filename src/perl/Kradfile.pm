@@ -36,15 +36,16 @@ sub read {
     while (my $line = <$kradfile>) {
       next if $line =~ /^#/; # skip comments
 
-      my @matches = ($line =~ /^(.)/);
+      my @matches = ($line =~ /^(.) : (.+)$/);
 
-      die "Error while parsing $line\n" if !@matches || @matches != 1;
+      die "Error while parsing $line\n" if !@matches || @matches != 2;
 
       my $kanji = shift @matches;
-      $kanjis{$kanji} = 1;
+      my @radicals = split ' ', shift @matches;
+      $kanjis{$kanji} = \@radicals;
     }
 
-    close($kradfile);
+    close $kradfile;
   }
 
   return \%kanjis;

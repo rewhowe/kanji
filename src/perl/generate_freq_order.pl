@@ -62,5 +62,5 @@ sub outputJson {
 
 main();
 
-close($input);
-close($output);
+close $input;
+close $output;

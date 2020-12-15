@@ -26,7 +26,9 @@ Example: `鬱` (29 strokes; 7 composing radicals; exceptional stroke order)
 
 This can found in less than a second by typing `木缶` which are easily recognizable radicals within the kanji.
 
-**Helpful Shortcuts**
+## Helpful Shortcuts
+
+### Lookalikes
 
 Below is a list of "lookalike" radicals and the associated radicals included in the search. These can be used to make input easier or to allow more ambiguity in the search when the specific radical isn't certain.
 
@@ -54,6 +56,8 @@ Below is a list of "lookalike" radicals and the associated radicals included in 
 
 ※ These are, additionally, radicals themselves, but are easily mistaken by Japanese learners or readers of ridiculously small text.
 
+### Alternate Forms
+
 By prefixing certain kanji with an exclamation point (!), they will be converted to alternate forms. The list of kanji with alternate forms, mostly based on the [Kangxi radical](https://en.wikipedia.org/wiki/Kangxi_radical) list, is shown below.
 
 | Radical | Alternate Form |
@@ -74,6 +78,12 @@ By prefixing certain kanji with an exclamation point (!), they will be converted
 This is meant to make searching quicker as these radicals are common yet cumbersome to input.
 
 Example: `!水!火` → `⺡⺣` → `漁`
+
+### Decompositions
+
+Sometimes you may recognize a radical from another kanji, but not know how to write it (or the radical itself doesn't have a common name to convert from). By prefixing a kanji with a question mark (?), it will be decomposed into its radicals.
+
+Example: `?友` → `ノ一又`
 
 ## Notice
 
