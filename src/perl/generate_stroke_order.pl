@@ -44,7 +44,7 @@ sub main {
 sub parseResponse {
   my $response = shift;
 
-  my @kanjiLines = split("\n", $response);
+  my @kanjiLines = split "\n", $response;
   my $kradfile = Kradfile->new(directory => $kradDirectory);
 
   my @kanji = ();
@@ -55,7 +55,7 @@ sub parseResponse {
 
     next unless $kradfile->hasKanji($matches[0]);
 
-    push(@kanji, {kanji => $matches[0], strokes => $matches[1]});
+    push @kanji, { kanji => $matches[0], strokes => $matches[1] };
   }
 
   return @kanji;
@@ -78,4 +78,4 @@ sub outputJson {
 
 main();
 
-close($output);
+close $output;
